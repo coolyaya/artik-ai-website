@@ -6,6 +6,7 @@ import {
   TrendingUp, Rocket, Shield, Star, CheckCircle, Play
 } from 'lucide-react';
 import { submitForm } from "./utils/submitForm";
+import { loadVoiceflow, openVoiceflow } from "./lib/voiceflow";
 
 const colorClass: Record<string, string> = {
   cyan: "text-cyan-400",
@@ -626,7 +627,7 @@ async function submitDemo(e: React.FormEvent) {
           </div>
         </footer>
         <button
-          onClick={openVoiceflow}
+          onClick={async () => { await loadVoiceflow(); openVoiceflow(); }}
           className="fixed bottom-5 right-5 rounded-full px-4 py-2 bg-cyan-500/90 hover:bg-cyan-400 text-black font-semibold shadow-lg z-[60]"
           aria-label="Open chat"
         >
