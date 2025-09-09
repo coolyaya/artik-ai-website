@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone } from "lucide-react";
+import { APPS_SCRIPT_URL } from "../config";
 
 type Service = {
   id: string;
@@ -9,9 +10,6 @@ type Service = {
   blurb: string;
 };
 
-// Use your live Apps Script URL (no env var needed)
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzMEvPA7RmaRJIVc2bWhVSpQfmjBNPcCAGMZHdx4E_aqXcN32LpQ4WI6m3myybZDbB1HQ/exec";
 
 const services: Service[] = [
   { id: "ai-app",  name: "AI App Creation",           icon: <LayoutGrid className="w-5 h-5" />,   blurb: "Custom AI-powered apps tailored to your workflow." },
