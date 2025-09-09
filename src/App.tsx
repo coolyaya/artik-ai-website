@@ -5,6 +5,7 @@ import {
   LayoutGrid, ArrowRight, Zap, Phone, Users, Globe, Target, Clock,
   TrendingUp, Rocket, Shield, Star, CheckCircle, Play
 } from 'lucide-react';
+import { APPS_SCRIPT_URL } from "./config";
 
 // === ADD THIS HERE ===
 const colorClass: Record<string, string> = {
@@ -32,8 +33,6 @@ const [form, setForm] = React.useState({
   message: "",
 });
 
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzMEvPA7RmaRJIVc2bWhVSpQfmjBNPcCAGMZHdx4E_aqXcN32LpQ4WI6m3myybZDbB1HQ/exec";
 
 async function submitDemo(e: React.FormEvent) {
   e.preventDefault();
