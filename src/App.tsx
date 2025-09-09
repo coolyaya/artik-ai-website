@@ -6,7 +6,6 @@ import {
   TrendingUp, Rocket, Shield, Star, CheckCircle, Play
 } from 'lucide-react';
 
-// === ADD THIS HERE ===
 const colorClass: Record<string, string> = {
   cyan: "text-cyan-400",
   purple: "text-purple-400",
