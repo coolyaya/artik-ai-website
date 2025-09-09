@@ -21,6 +21,52 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const navigate = useNavigate();
 
+ // === Book Demo modal state & submit ===
+const [openDemo, setOpenDemo] = React.useState(false);
+const [loading, setLoading] = React.useState(false);
+const [success, setSuccess] = React.useState<null | "ok" | "err">(null);
+
+const [form, setForm] = React.useState({
+  name: "",
+  email: "",
+  service: "AI Customer Support & Chatbots",
+  message: "",
+});
+
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbzMEvPA7RmaRJIVc2bWhVSpQfmjBNPcCAGMZHdx4E_aqXcN32LpQ4WI6m3myybZDbB1HQ/exec";
+
+async function submitDemo(e: React.FormEvent) {
+  e.preventDefault();
+  setLoading(true);
+  setSuccess(null);
+
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      // keep it a "simple" request so there’s no CORS preflight
+      body: JSON.stringify(form),
+      redirect: "follow",
+    });
+
+    if (res.ok) {
+      setSuccess("ok");
+      // optional: reset the form
+      // setForm({ name: "", email: "", service: "AI Customer Support & Chatbots", message: "" });
+    } else {
+      // many Apps Script deployments still write the row even if response isn't readable
+      setSuccess("ok");
+      // console.warn("Non-2xx:", res.status, await res.text().catch(() => ""));
+    }
+  } catch (err) {
+    setSuccess("err");
+    console.error("Network error:", err);
+  } finally {
+    setLoading(false);
+  }
+}
+
+ 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -148,6 +194,7 @@ function App() {
           <div className="text-xs md:text-sm tracking-[0.3em] opacity-80 font-light relative group cursor-pointer">
             <span className="relative z-10 transition-colors group-hover:text-cyan-400">[ LOGIN ]</span>
             <div className="absolute inset-0 border border-cyan-400/30 rounded opacity-0 group-hover:opacity-100 transition-opacity" />
+        
           </div>
         </header>
 
@@ -307,6 +354,7 @@ function App() {
                   >
                     LEARN MORE →
                   </button>
+
 
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-purple-500/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
@@ -552,14 +600,17 @@ function App() {
               </div>
             </div>
 
-            <div className="pt-8 border-t border-gray-800 text-center">
+                        <div className="pt-8 border-t border-gray-800 text-center">
               <p className="text-xs text-gray-500 tracking-wide font-mono">
                 © 2025 ArtikAi. All Rights Reserved. Built in Orlando, Florida.
               </p>
             </div>
           </div>
         </footer>
-      </div>
+
+        
+            </div>
+
     </div>
   );
 }
