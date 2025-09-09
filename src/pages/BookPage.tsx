@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone } from "lucide-react";
 
 type Service = {
@@ -22,10 +22,20 @@ const services: Service[] = [
   { id: "ads",     name: "Ads & Creatives",           icon: <Megaphone className="w-5 h-5" />,     blurb: "IG/FB hooks, scripts, and creatives that perform." },
 ];
 
-export default function BookDemo() {
+export default function BookPage() {
   const [selected, setSelected] = useState<Service | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const nav = useNavigate();
+  const location = useLocation();
+
+  // Preselect service from ?service=crm, etc.
+  useEffect(() => {
+    const p = new URLSearchParams(location.search);
+    const q = p.get("service"); // "crm", "ai-app", etc.
+    if (!q) return;
+    const found = services.find(s => s.id === q);
+    if (found) setSelected(found);
+  }, [location.search]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -35,18 +45,16 @@ export default function BookDemo() {
 
     try {
       setSubmitting(true);
-
-      // IMPORTANT: No custom headers → stays a "simple request" (no CORS preflight)
+      // Keep it a "simple request" (no custom headers) to avoid CORS preflight
       const res = await fetch(APPS_SCRIPT_URL, {
         method: "POST",
         body: JSON.stringify(payload),
         redirect: "follow",
       });
 
-      // Treat any 2xx as success (Apps Script may return minimal body)
       if (res.ok) {
         alert("Thanks! We’ll reach out to schedule your demo.");
-        nav("/"); // back to home
+        nav("/");
       } else {
         // Many Apps Script deployments still write the row even if response isn't readable
         alert("Thanks! We’ll reach out to schedule your demo.");

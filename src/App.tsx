@@ -1,21 +1,19 @@
 import { useNavigate } from 'react-router-dom'
 import React, { useEffect, useRef } from 'react';
 import {
-  LayoutGrid,
-  ArrowRight,
-  Zap,
-  Phone,
-  Users,
-  Globe,
-  Target,
-  Clock,
-  TrendingUp,
-  Rocket,
-  Shield,
-  Star,
-  CheckCircle,
-  Play
+  LayoutGrid, ArrowRight, Zap, Phone, Users, Globe, Target, Clock,
+  TrendingUp, Rocket, Shield, Star, CheckCircle, Play
 } from 'lucide-react';
+
+// === ADD THIS HERE ===
+const colorClass: Record<string, string> = {
+  cyan: "text-cyan-400",
+  purple: "text-purple-400",
+  green: "text-green-400",
+  red: "text-red-400",
+  pink: "text-pink-400",
+};
+
 
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -342,7 +340,7 @@ async function submitDemo(e: React.FormEvent) {
                   key={service.id}
                   className="group relative p-6 bg-gray-900/50 border border-gray-800 rounded-lg backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-300"
                 >
-                  <div className={`text-${service.color}-400 mb-4`}>
+                  <div className={`${colorClass[service.color]} mb-4`}>
                     {service.icon}
                   </div>
                   <h3 className="text-lg font-semibold mb-3 tracking-wide">{service.title}</h3>
@@ -356,7 +354,7 @@ async function submitDemo(e: React.FormEvent) {
                   </button>
 
 
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-purple-500/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-purple-500/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
               ))}
             </div>
