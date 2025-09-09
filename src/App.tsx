@@ -5,6 +5,7 @@ import {
   LayoutGrid, ArrowRight, Zap, Phone, Users, Globe, Target, Clock,
   TrendingUp, Rocket, Shield, Star, CheckCircle, Play
 } from 'lucide-react';
+import { loadVoiceflow, openVoiceflow } from "./lib/voiceflow";
 
 // === ADD THIS HERE ===
 const colorClass: Record<string, string> = {
@@ -19,6 +20,10 @@ const colorClass: Record<string, string> = {
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    loadVoiceflow();
+  }, []);
 
  // === Book Demo modal state & submit ===
 const [openDemo, setOpenDemo] = React.useState(false);
@@ -57,6 +62,15 @@ async function submitDemo(e: React.FormEvent) {
       setSuccess("ok");
       // console.warn("Non-2xx:", res.status, await res.text().catch(() => ""));
     }
+
+    await loadVoiceflow({
+      user: {
+        name: String(form.name ?? ""),
+        email: String(form.email ?? ""),
+        service: String((form as any).service ?? ""),
+      },
+    });
+    openVoiceflow();
   } catch (err) {
     setSuccess("err");
     console.error("Network error:", err);
@@ -611,8 +625,14 @@ async function submitDemo(e: React.FormEvent) {
             </div>
           </div>
         </footer>
+        <button
+          onClick={openVoiceflow}
+          className="fixed bottom-5 right-5 rounded-full px-4 py-2 bg-cyan-500/90 hover:bg-cyan-400 text-black font-semibold shadow-lg z-[60]"
+          aria-label="Open chat"
+        >
+          Chat with us
+        </button>
 
-        
             </div>
 
     </div>

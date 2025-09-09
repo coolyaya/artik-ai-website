@@ -1,4 +1,5 @@
 import React from "react";
+import { loadVoiceflow, openVoiceflow } from "../lib/voiceflow";
 
 type Props = {
   defaultService?: string;
@@ -45,6 +46,15 @@ export default function BookingForm({ defaultService, onDone }: Props) {
         setSuccess("ok");
         if (onDone) onDone();
       }
+
+      await loadVoiceflow({
+        user: {
+          name: String(form.name ?? ""),
+          email: String(form.email ?? ""),
+          service: String((form as any).service ?? ""),
+        },
+      });
+      openVoiceflow();
     } catch (err) {
       console.error(err);
       setSuccess("err");
