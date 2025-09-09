@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone } from "lucide-react";
+import { loadVoiceflow, openVoiceflow } from "../lib/voiceflow";
 
 type Service = {
   id: string;
@@ -54,12 +55,20 @@ export default function BookPage() {
 
       if (res.ok) {
         alert("Thanks! We’ll reach out to schedule your demo.");
-        nav("/");
       } else {
         // Many Apps Script deployments still write the row even if response isn't readable
         alert("Thanks! We’ll reach out to schedule your demo.");
-        nav("/");
       }
+
+      await loadVoiceflow({
+        user: {
+          name: String(payload.name ?? ""),
+          email: String(payload.email ?? ""),
+          service: String((payload as any).service ?? ""),
+        },
+      });
+      openVoiceflow();
+      nav("/");
     } catch {
       alert("Hmm, something went wrong. Try again.");
     } finally {
