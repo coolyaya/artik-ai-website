@@ -5,8 +5,8 @@ import {
   LayoutGrid, ArrowRight, Zap, Phone, Users, Globe, Target, Clock,
   TrendingUp, Rocket, Shield, Star, CheckCircle, Play
 } from 'lucide-react';
+import { submitForm } from "./utils/submitForm";
 
-// === ADD THIS HERE ===
 const colorClass: Record<string, string> = {
   cyan: "text-cyan-400",
   purple: "text-purple-400",
@@ -20,6 +20,8 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const navigate = useNavigate();
 
+  // (Removed Voiceflow auto-load; using simple form submit util)
+
  // === Book Demo modal state & submit ===
 const [openDemo, setOpenDemo] = React.useState(false);
 const [loading, setLoading] = React.useState(false);
@@ -32,14 +34,12 @@ const [form, setForm] = React.useState({
   message: "",
 });
 
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzMEvPA7RmaRJIVc2bWhVSpQfmjBNPcCAGMZHdx4E_aqXcN32LpQ4WI6m3myybZDbB1HQ/exec";
-
 async function submitDemo(e: React.FormEvent) {
   e.preventDefault();
   setLoading(true);
   setSuccess(null);
 
+/*
   try {
     const res = await fetch(APPS_SCRIPT_URL, {
       method: "POST",
@@ -57,12 +57,26 @@ async function submitDemo(e: React.FormEvent) {
       setSuccess("ok");
       // console.warn("Non-2xx:", res.status, await res.text().catch(() => ""));
     }
+
+    await loadVoiceflow({
+      user: {
+        name: String(form.name ?? ""),
+        email: String(form.email ?? ""),
+        service: String((form as any).service ?? ""),
+      },
+    });
+    openVoiceflow();
   } catch (err) {
     setSuccess("err");
     console.error("Network error:", err);
   } finally {
     setLoading(false);
   }
+*/
+  const ok = await submitForm(form);
+  setSuccess(ok ? "ok" : "err");
+  setLoading(false);
+
 }
 
  
@@ -611,8 +625,14 @@ async function submitDemo(e: React.FormEvent) {
             </div>
           </div>
         </footer>
+        <button
+          onClick={openVoiceflow}
+          className="fixed bottom-5 right-5 rounded-full px-4 py-2 bg-cyan-500/90 hover:bg-cyan-400 text-black font-semibold shadow-lg z-[60]"
+          aria-label="Open chat"
+        >
+          Chat with us
+        </button>
 
-        
             </div>
 
     </div>
