@@ -5,6 +5,7 @@ import {
   LayoutGrid, ArrowRight, Zap, Phone, Users, Globe, Target, Clock,
   TrendingUp, Rocket, Shield, Star, CheckCircle, Play
 } from 'lucide-react';
+import { submitForm } from "./utils/submitForm";
 
 // === ADD THIS HERE ===
 const colorClass: Record<string, string> = {
@@ -32,37 +33,14 @@ const [form, setForm] = React.useState({
   message: "",
 });
 
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzMEvPA7RmaRJIVc2bWhVSpQfmjBNPcCAGMZHdx4E_aqXcN32LpQ4WI6m3myybZDbB1HQ/exec";
-
 async function submitDemo(e: React.FormEvent) {
   e.preventDefault();
   setLoading(true);
   setSuccess(null);
 
-  try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      // keep it a "simple" request so there’s no CORS preflight
-      body: JSON.stringify(form),
-      redirect: "follow",
-    });
-
-    if (res.ok) {
-      setSuccess("ok");
-      // optional: reset the form
-      // setForm({ name: "", email: "", service: "AI Customer Support & Chatbots", message: "" });
-    } else {
-      // many Apps Script deployments still write the row even if response isn't readable
-      setSuccess("ok");
-      // console.warn("Non-2xx:", res.status, await res.text().catch(() => ""));
-    }
-  } catch (err) {
-    setSuccess("err");
-    console.error("Network error:", err);
-  } finally {
-    setLoading(false);
-  }
+  const ok = await submitForm(form);
+  setSuccess(ok ? "ok" : "err");
+  setLoading(false);
 }
 
  
