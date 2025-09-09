@@ -3,6 +3,8 @@ import { Play } from "lucide-react";
 
 export default function DemoVideo() {
   const [playing, setPlaying] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [dimensions, setDimensions] = useState<{ w: number; h: number } | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   function handlePlay() {
@@ -24,6 +26,24 @@ export default function DemoVideo() {
         preload="metadata"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
+        onLoadedMetadata={() => {
+          const el = videoRef.current;
+          if (!el) return;
+          const w = el.videoWidth;
+          const h = el.videoHeight;
+          setDimensions({ w, h });
+          // If audio plays but no video, some browsers report 0x0
+          if (!w || !h) {
+            setErrorMsg(
+              "Video track appears unsupported by this browser. Please use an H.264 (yuv420p) MP4 or VP9 WebM."
+            );
+          }
+        }}
+        onError={() => {
+          const el = videoRef.current;
+          const code = (el?.error && (el.error as any).code) || "";
+          setErrorMsg(`Unable to play this file${code ? ` (error ${code})` : ''}. Try an H.264 (yuv420p) MP4.`);
+        }}
       >
         {/* Prefer an H.264 encode if present (add to /public) */}
         <source src="/demo-video-h264.mp4" type='video/mp4; codecs="avc1.640028, mp4a.40.2"' />
@@ -42,6 +62,13 @@ export default function DemoVideo() {
         >
           <Play className="w-20 h-20 text-white drop-shadow-lg" />
         </button>
+      )}
+
+      {errorMsg && (
+        <div className="absolute bottom-0 left-0 right-0 p-3 text-sm bg-red-600/80 text-white">
+          {errorMsg}
+          {dimensions ? ` (reported ${dimensions.w}x${dimensions.h})` : null}
+        </div>
       )}
     </div>
   );
