@@ -1,3 +1,4 @@
+import DemoVideo from "./components/DemoVideo";
 import { useNavigate } from 'react-router-dom'
 import React, { useEffect, useRef } from 'react';
 import {
@@ -291,8 +292,13 @@ async function submitDemo(e: React.FormEvent) {
                 <span className="text-sm tracking-wide">See How It Works</span>
               </button>
             </div>
-          </div>
-        </section>
+
+            {/* Replace raw <video> with DemoVideo */}
+            <DemoVideo />
+
+            </div>
+            </section>
+
 
         {/* Trust & Social Proof Section */}
         <section className="py-16 px-6 md:px-8 border-t border-cyan-400/10 backdrop-blur-sm">
