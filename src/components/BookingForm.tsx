@@ -1,12 +1,11 @@
 import React from "react";
+import { submitForm } from "../utils/submitForm";
 
 type Props = {
   defaultService?: string;
   onDone?: () => void;
 };
 
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzMEvPA7RmaRJIVc2bWhVSpQfmjBNPcCAGMZHdx4E_aqXcN32LpQ4WI6m3myybZDbB1HQ/exec";
 
 export default function BookingForm({ defaultService, onDone }: Props) {
   const [loading, setLoading] = React.useState(false);
@@ -28,29 +27,10 @@ export default function BookingForm({ defaultService, onDone }: Props) {
     e.preventDefault();
     setLoading(true);
     setSuccess(null);
-    try {
-      const res = await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        // keep it a simple request (no custom headers) to avoid CORS preflight
-        body: JSON.stringify(form),
-        redirect: "follow",
-      });
-      if (res.ok) {
-        setSuccess("ok");
-        if (onDone) onDone();
-        // optionally reset:
-        // setForm({ name:"", email:"", service: defaultService || "AI Customer Support & Chatbots", message:"" });
-      } else {
-        // Often still writes the row; treat as ok for UX
-        setSuccess("ok");
-        if (onDone) onDone();
-      }
-    } catch (err) {
-      console.error(err);
-      setSuccess("err");
-    } finally {
-      setLoading(false);
-    }
+    const ok = await submitForm(form);
+    setSuccess(ok ? "ok" : "err");
+    if (ok && onDone) onDone();
+    setLoading(false);
   }
 
   return (

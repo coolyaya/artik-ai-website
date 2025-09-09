@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone } from "lucide-react";
+import { submitForm } from "../utils/submitForm";
 
 type Service = {
   id: string;
@@ -9,9 +10,6 @@ type Service = {
   blurb: string;
 };
 
-// Use your live Apps Script URL (no env var needed)
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzMEvPA7RmaRJIVc2bWhVSpQfmjBNPcCAGMZHdx4E_aqXcN32LpQ4WI6m3myybZDbB1HQ/exec";
 
 const services: Service[] = [
   { id: "ai-app",  name: "AI App Creation",           icon: <LayoutGrid className="w-5 h-5" />,   blurb: "Custom AI-powered apps tailored to your workflow." },
@@ -43,28 +41,15 @@ export default function BookPage() {
     const payload: Record<string, any> = Object.fromEntries(fd.entries());
     payload.service = selected?.name ?? "Unspecified";
 
-    try {
-      setSubmitting(true);
-      // Keep it a "simple request" (no custom headers) to avoid CORS preflight
-      const res = await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify(payload),
-        redirect: "follow",
-      });
-
-      if (res.ok) {
-        alert("Thanks! We’ll reach out to schedule your demo.");
-        nav("/");
-      } else {
-        // Many Apps Script deployments still write the row even if response isn't readable
-        alert("Thanks! We’ll reach out to schedule your demo.");
-        nav("/");
-      }
-    } catch {
+    setSubmitting(true);
+    const ok = await submitForm(payload);
+    if (ok) {
+      alert("Thanks! We’ll reach out to schedule your demo.");
+      nav("/");
+    } else {
       alert("Hmm, something went wrong. Try again.");
-    } finally {
-      setSubmitting(false);
     }
+    setSubmitting(false);
   }
 
   return (
