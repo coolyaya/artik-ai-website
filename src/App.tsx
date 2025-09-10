@@ -205,11 +205,6 @@ async function submitDemo(e: React.FormEvent) {
             <span className="text-cyan-400 relative z-10">AI</span>
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 rounded blur opacity-30" />
           </div>
-          <div className="text-xs md:text-sm tracking-[0.3em] opacity-80 font-light relative group cursor-pointer">
-            <span className="relative z-10 transition-colors group-hover:text-cyan-400">[ LOGIN ]</span>
-            <div className="absolute inset-0 border border-cyan-400/30 rounded opacity-0 group-hover:opacity-100 transition-opacity" />
-        
-          </div>
         </header>
 
         {/* Hero Section */}

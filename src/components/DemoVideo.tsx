@@ -3,6 +3,7 @@ import { Play } from "lucide-react";
 
 export default function DemoVideo() {
   const [playing, setPlaying] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [dimensions, setDimensions] = useState<{ w: number; h: number } | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -10,6 +11,7 @@ export default function DemoVideo() {
   function handlePlay() {
     const el = videoRef.current;
     if (el) {
+      setControlsVisible(true); // reveal native controls on first interaction
       el.play().catch(() => {
         // If autoplay with user gesture still fails, keep controls visible
       });
@@ -21,7 +23,8 @@ export default function DemoVideo() {
       <video
         ref={videoRef}
         className="w-full h-auto"
-        controls
+        controls={controlsVisible}
+        poster="/thumbnail.jpg"
         playsInline
         preload="metadata"
         onPlay={() => setPlaying(true)}
@@ -41,7 +44,7 @@ export default function DemoVideo() {
         }}
         onError={() => {
           const el = videoRef.current;
-          const code = (el?.error && (el.error as any).code) || "";
+          const code = (el?.error && (el.error as MediaError)?.code) || "";
           setErrorMsg(`Unable to play this file${code ? ` (error ${code})` : ''}. Try an H.264 (yuv420p) MP4.`);
         }}
       >
