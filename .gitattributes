@@ -6,3 +6,5 @@
 *.wav filter=lfs diff=lfs merge=lfs -text
 *.mp3 filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
+public/demo-video-h264.mp4 -filter -diff -merge -text
+public/thumbnail.jpg -filter -diff -merge -text

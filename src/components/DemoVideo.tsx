@@ -48,10 +48,10 @@ export default function DemoVideo() {
           setErrorMsg(`Unable to play this file${code ? ` (error ${code})` : ''}. Try an H.264 (yuv420p) MP4.`);
         }}
       >
-        {/* Prefer an H.264 encode if present (add to /public) */}
-        <source src="/demo-video-h264.mp4" type='video/mp4; codecs="avc1.640028, mp4a.40.2"' />
-        {/* WebM/VP9 fallback (optional, add if available) */}
+        {/* Prefer WebM/VP9 for modern browsers */}
         <source src="/demo-video-vp9.webm" type="video/webm" />
+        {/* H.264 fallback for Safari/older browsers */}
+        <source src="/demo-video-h264.mp4" type='video/mp4; codecs="avc1.640028, mp4a.40.2"' />
         {/* Current file as last resort */}
         <source src="/demo-video.mp4" type="video/mp4" />
         Sorry, your browser doesn’t support embedded videos.
