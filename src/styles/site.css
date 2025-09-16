@@ -1,0 +1,501 @@
+:root{
+  /* Backgrounds */
+  --bg: #0a0b12;                 /* slightly cooler base */
+  --bg-elev: #111223;            /* elevated section */
+  --card: #121326;               /* top of card gradient */
+  --card-2: #161838;             /* bottom of card gradient */
+
+  /* Text */
+  --text: #F6F7FF;               /* crisp but not pure white */
+  --muted: #BFC6F8;              /* cooled-off secondary */
+
+  /* Brand accents (tuned to your hero) */
+  --accent: #78E8FF;             /* icy cyan from the video glow */
+  --accent-2: #8F7CFF;           /* soft violet */
+  --accent-3: #FF7AD1;           /* pink highlight for hovers/gradients */
+
+  /* Lines / effects */
+  --border: rgba(168, 184, 255, 0.14);
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,0.50);
+
+  /* Background scene glow (cooler + cyan) */
+  --glow: radial-gradient(60% 60% at 50% 0%,
+            rgba(120,232,255,0.18) 0%,
+            rgba(143,124,255,0.12) 35%,
+            transparent 70%);
+}
+
+html,body,#root{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background-image: var(--glow);
+  background-attachment: fixed;
+}
+
+a{color:var(--link); text-decoration:none}
+a:hover{opacity:.9}
+
+.container{max-width:1120px; margin-inline:auto; padding:0 24px}
+.section{padding:96px 0}
+@media (max-width: 900px){
+  .section{ padding:72px 0 }
+}
+@media (max-width: 600px){
+  .section{ padding:56px 0 }
+}
+.h1{font-size:42px; line-height:1.1; letter-spacing:-0.01em}
+.h2{font-size:32px; line-height:1.15}
+.h3{font-size:20px; line-height:1.2; color:var(--muted)}
+.lead{color:var(--muted)}
+
+.card{
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  backdrop-filter: saturate(110%) blur(2px);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+.card:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.6);
+  border-color: rgba(120,232,255,.28);          /* cyan shimmer */
+  background: linear-gradient(180deg,
+              color-mix(in oklab, var(--card) 88%, #1e2246 12%),
+              color-mix(in oklab, var(--card-2) 88%, #232a5a 12%));
+}
+
+.grid{display:grid; gap:22px}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+.btn{display:inline-flex; gap:10px; align-items:center; border-radius:999px; padding:10px 16px; font-weight:600; position:relative; outline:none}
+.btn--primary{background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#08131a; border:none}
+.btn--primary:hover{background:linear-gradient(90deg,var(--accent-2),var(--accent-3)); transform: translateY(-1px); filter: saturate(110%)}
+.btn--ghost{background:rgba(255,255,255,0.03); border:1px solid var(--border); color:var(--text)}
+.btn--ghost:hover{border-color:rgba(120,232,255,.35); background:rgba(120,232,255,.06)}
+.btn--sm{padding:8px 12px; font-size:14px}
+.btn--lg{padding:14px 20px; font-size:16px}
+.btn:focus-visible{ box-shadow: 0 0 0 3px rgba(120,232,255,.35); }
+
+.badge{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:6px 10px; border:1px solid var(--border); border-radius:999px;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border-color: rgba(120,232,255,.22);
+  color:var(--muted); font-size:12px;
+}
+
+.kicker{color:var(--accent); font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:12px}
+
+.hr{height:1px; background:var(--border); margin:24px 0}
+.footer-col h4{margin:0 0 8px 0; font-size:14px; color:#ddd}
+.footer-col a{display:block; color:#cdd4ff; margin:6px 0; font-size:13px}
+.footer-col a:hover{ color: var(--accent); }
+
+/* Nice-to-have: entrance fade */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card { animation: fadeUp .4s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card { animation: none; }
+}
+
+/* Respect reduced motion globally + small perf */
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Contain heavy paint areas */
+.card, .hero-bleed{ contain: paint; }
+
+/* Natural fade from the hero into page background */
+.hero-wrap{
+  position: relative;
+  isolation: isolate;                   /* keep inner effects contained */
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* The fade overlay lives on top of the hero but doesn't block clicks */
+.hero-wrap::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-1px; height:160px;
+  pointer-events:none;
+  /* transparent at 0% → gentle haze → page bg */
+  background:
+    linear-gradient(to bottom,
+      rgba(10,11,18,0) 0%,
+      rgba(10,11,18,0.12) 35%,
+      rgba(10,11,18,0.45) 70%,
+      var(--bg) 100%);
+  /* optional glow that matches the hero cyan */
+  box-shadow: 0 -30px 120px 0 rgba(120,232,255,0.15) inset;
+}
+@media (max-width: 900px){
+  .hero-wrap::after{ height:120px }
+}
+@media (max-width: 600px){
+  .hero-wrap::after{ height:90px }
+}
+
+/* Optional curved separator if desired */
+.hero-separator{
+  position: relative;
+  height: 72px;
+  margin-top: -40px;              /* overlap hero */
+  background:
+    radial-gradient(120% 90% at 50% 0%,
+      rgba(120,232,255,0.14), transparent 70%),
+    var(--bg);
+  -webkit-mask:
+    radial-gradient(120% 120% at 50% -40px, transparent 38px, #000 39px);
+          mask:
+    radial-gradient(120% 120% at 50% -40px, transparent 38px, #000 39px);
+}
+
+/* Remove stray borders/shadows and ensure the canvas paints to the edge */
+.hero-wrap canvas,
+.hero-wrap [data-spline-root]{
+  display:block;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Reduce contrast of the Spline badge so it doesn't draw a line */
+.hero-wrap [data-spline-badge],
+.hero-wrap .spline-badge{
+  opacity:.5; filter:saturate(80%);
+}
+
+/* Kill ALL hero fades/bleeds/curves */
+.hero-bleed{ display:none !important; }
+.hero-wrap::after{ content:none !important; }
+.hero-separator{ display:none !important; }
+/* If we added a feather on the first section, remove it */
+#integrations::before{ content:none !important; }
+
+/* Make sure nothing is blurring the edge */
+.hero-wrap,
+.hero-wrap * {
+  backdrop-filter: none !important;
+  filter: none !important;
+  box-shadow: none;
+  border-bottom: none;
+}
+
+/* Straight, crisp seam */
+.hero-edge{
+  height: 28px;                 /* adjust if you want thinner/thicker */
+  background: var(--bg);        /* same as page background */
+  border-top: 1px solid rgba(168,184,255,0.12);  /* subtle hairline */
+  position: relative;
+  z-index: 1;                   /* ensures it sits above the hero canvas */
+  margin-top: -1px;             /* hides any 1px artifact from the hero */
+}
+
+/* Reset first section (no underlap) */
+#integrations{
+  margin-top: 0 !important;
+  padding-top: 96px;
+}
+@media (max-width: 900px){ #integrations{ padding-top:72px } }
+@media (max-width: 600px){ #integrations{ padding-top:56px } }
+
+/* Ensure Spline/canvas stays transparent */
+.hero-wrap canvas,
+.hero-wrap [data-spline-root]{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Links */
+a { color: color-mix(in oklab, var(--accent) 70%, #ffffff 30%); }
+a:hover { color: var(--accent-2); }
+
+/* Read more hover nudge */
+a.btn.btn--ghost, a.btn--ghost{ transition: transform .15s ease; }
+a.btn--ghost:hover{ transform: translateX(2px); }
+
+/* Section headings tint */
+.h2{
+  color:#EFF2FF;                    /* brighter */
+  text-shadow: 0 0 12px rgba(120,232,255,.08);
+  letter-spacing:-0.005em;
+}
+.h3{ color: color-mix(in oklab, var(--muted) 92%, #fff 8%); }
+
+/* Integrations subtle cyan wash */
+#integrations{ position: relative; }
+#integrations::before{
+  content:"";
+  position:absolute; inset:-40px 0 auto 0; height:180px; pointer-events:none;
+  background:
+    radial-gradient(60% 60% at 50% 0%,
+      rgba(120,232,255,0.12), rgba(143,124,255,0.10) 50%, transparent 72%);
+  filter: blur(12px);
+}
+
+/* Underlap + top feather for first section */
+#integrations{
+  margin-top: -48px;                 /* tucks under the hero for a seamless join */
+  padding-top: calc(96px + 48px);    /* preserve visual spacing */
+}
+
+/* Wide CTA feathering */
+.card[data-variant="wide-cta"]{ position: relative; overflow: hidden; }
+.card[data-variant="wide-cta"]::after{
+  content:"";
+  position:absolute; inset: -1px -60px; z-index:-1;
+  background: radial-gradient(60% 90% at 50% 50%, rgba(120,232,255,.14), transparent 70%);
+  filter: blur(20px);
+}
+
+/* Feature spacing polish */
+#features .card { padding: 22px 22px; }
+#features .btn { margin-top: 10px; }
+
+/* Optional integration chip variant */
+.card[data-variant="chip"]{
+  padding: 10px 12px;
+  background: linear-gradient(180deg,#151739, #101228);
+  border-color: rgba(120,232,255,.16);
+  min-height: 38px;
+}
+.card[data-variant="chip"]:hover{ border-color: rgba(120,232,255,0.30); }
+.card[data-variant="chip"] img{ opacity:.9; filter:saturate(90%) }
+
+/* Smooth hero → body transition band */
+.hero-bleed {
+  height: 110px;
+  background:
+    radial-gradient(120% 100% at 50% 0%,
+      rgba(120,232,255,0.18) 0%,
+      rgba(143,124,255,0.12) 45%,
+      transparent 80%),
+    linear-gradient(180deg, rgba(10,11,18,0.0), var(--bg));
+  filter: saturate(110%);
+}
+@media (max-width: 900px){ .hero-bleed{ height: 80px } }
+@media (max-width: 600px){ .hero-bleed{ height: 60px } }
+
+/* Code blocks: contrast + wrapping */
+pre{
+  color:#E8EDFF;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(168,184,255,.14);
+  border-radius: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Integrations grid and chips */
+.integrations-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.chip{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 88px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(120,232,255,0.16);
+  background: linear-gradient(180deg, #151739, #101228);
+  box-shadow: 0 8px 28px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,0.05);
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.chip:hover{
+  transform: translateY(-2px);
+  border-color: rgba(120,232,255,0.32);
+  box-shadow: 0 14px 36px rgba(0,0,0,.55), 0 0 0 2px rgba(120,232,255,0.08) inset;
+}
+
+.chip__logo{
+  height: 26px;
+  width: auto;
+  display:block;
+  opacity: 1;
+  image-rendering: auto;
+  filter: none;
+}
+
+.chip__mono{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height: 34px; width: 34px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(168,184,255,0.22);
+  color: #EAF2FF;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+
+.chip__label{
+  font-size: 12px;
+  color: var(--muted);
+  opacity:.9;
+  line-height:1;
+}
+/* Do NOT recolor logos */
+#integrations img,
+.chip__logo {
+  filter: none !important;           /* kill invert/brightness/grayscale */
+  mix-blend-mode: normal !important; /* no blending tricks */
+  opacity: 1 !important;             /* no ghosting */
+}
+
+/* In case we globally set svg fill via currentColor somewhere: */
+#integrations svg [fill],
+#integrations svg path,
+#integrations svg use {
+  fill: initial !important;
+  stroke: initial !important;
+}
+/* Always: icon/monogram first, label second */
+.chip { display: flex; flex-direction: column; align-items: center; }
+.chip__logo, .chip__mono { order: 1; }
+.chip__label { order: 2; margin-top: 8px; }
+
+/* Keep colored logos (no forced white) */
+#integrations img.chip__logo { filter: none; mix-blend-mode: normal; opacity: 1; }
+/* Hero layout */
+.hero{ position: relative; min-height: 72vh; }
+.hero__media{
+  position: absolute; inset: 0; z-index: 0;
+  pointer-events: auto;                 /* allow interaction */
+}
+.hero__media [data-spline-root],
+.hero__media canvas{
+  width: 100%; height: 100%; display: block;
+  background: transparent !important;
+  pointer-events: auto !important;      /* Spline gets the events */
+}
+
+/* Content floats above but doesn't block the canvas */
+.hero__content{
+  position: relative; z-index: 2;
+  pointer-events: none;                  /* make whole layer click-through */
+}
+.hero__content a,
+.hero__content button,
+.hero__content input,
+.hero__content video{
+  pointer-events: auto;                  /* only real controls are clickable */
+}
+
+/* Anything decorative near the seam must never steal clicks */
+.hero-edge,
+.hero-bleed,
+.hero-overlay,
+#integrations::before{
+  pointer-events: none !important;
+  z-index: 1;                            /* can sit visually between media/content */
+  background: transparent;
+  border: 0; box-shadow: none;
+}
+
+/* If a fixed header overlaps the hero, keep it on top without blocking canvas below it */
+.header, nav{ position: relative; z-index: 3; }
+
+/* Safety: remove any global filters that might disable events/cover the canvas */
+.hero *{ filter: none !important; backdrop-filter: none !important; }
+
+/* Remove overlap on next section under hero */
+#integrations{ margin-top: 0 !important; }
+
+/* --- Base hero stacking --- */
+.hero { position: relative; min-height: 72vh; }
+.hero__media { position: absolute; inset: 0; z-index: 1; }
+.hero__content { position: relative; z-index: 2; }
+
+/* --- Nuclear fix: everything inside hero is non-interactive by default --- */
+.hero * { pointer-events: none !important; }
+
+/* --- Opt-in only what we need clickable --- */
+.hero .spline,
+.hero .spline *,
+.hero__media,
+.hero__media * { pointer-events: auto !important; }   /* Spline + its canvas */
+
+.hero__content a,
+.hero__content button,
+.hero__content input,
+.hero__content video,
+.hero__content [role="button"] { pointer-events: auto !important; } /* CTAs still clickable */
+
+/* --- Kill overlays and pseudo-elements blocking the canvas --- */
+.hero::before, .hero::after,
+.hero *::before, .hero *::after { pointer-events: none !important; }
+.hero-edge, .hero-bleed, .hero-overlay { pointer-events: none !important; }
+/* Promo/video overlays should be click-through unless explicitly re-enabled */
+.hero-video,
+.hero-video *,
+.hero__overlay,
+.hero__veil { pointer-events: none !important; }
+/* If the video itself must be clickable, opt-in with [data-clickable] */
+.hero-video [data-clickable] { pointer-events: auto !important; }
+
+/* --- Ensure the Spline surface is above any accidental low z-index --- */
+.hero .spline { position: absolute; inset: 0; z-index: 1; }
+.hero__media [data-spline-root],
+.hero__media canvas { width: 100%; height: 100%; display: block; background: transparent !important; }
+
+/* If a fixed header sits over the hero, keep it above content only */
+.header, nav { position: relative; z-index: 3; }
+
+/* Remove any section overlap that could cover Spline */
+#integrations { margin-top: 0 !important; }
+
+/* Removed temporary debug block that disabled pointer events globally */
+
+/* Layout & stacking */
+.hero{ position: relative; min-height: 72vh; }
+.hero__media{ position: absolute; inset: 0; z-index: 1; }
+.hero__content{ position: relative; z-index: 2; }
+
+/* The Spline viewer must get the pointer events */
+.spline,
+.spline *{
+  pointer-events: auto !important;
+}
+.hero__media spline-viewer{
+  display:block; width:100%; height:100%;
+  background: transparent !important;
+}
+
+/* (reverted) no horizontal nudge for hero Spline */
+
+/* Make decorative content click-through by default, but keep real controls clickable */
+.hero__content{ pointer-events: none; }
+.hero__content a,
+.hero__content button,
+.hero__content input,
+.hero__content [role="button"],
+.hero__content video{ pointer-events: auto; }
+
+/* Ensure nothing at the seam blocks interaction */
+.hero-edge, .hero-bleed, .hero-overlay, #integrations::before{
+  pointer-events: none !important;
+  background: transparent; border:0; box-shadow:none;
+}
+
+/* If a fixed header overlaps, keep it above without covering the canvas elsewhere */
+.header, nav{ position: relative; z-index: 3; }

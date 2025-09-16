@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ArtikAi - AI Automation Agency. Automate on every axis with cutting-edge artificial intelligence solutions." />
+    <meta name="keywords" content="AI automation, artificial intelligence, business automation, ArtikAi" />
+    <title>ArtikAi - AI Automation Agency</title>
+
+    <!-- Open Graph defaults -->
+    <meta property="og:title" content="ArtikAi - AI Automation Agency" />
+    <meta property="og:description" content="AI-powered customer support, phone agents, and marketing automation to scale your business." />
+    <meta property="og:type" content="website" />
+    <!-- Using a relative path; update to absolute URL after deploying a custom domain -->
+    <meta property="og:image" content="/thumbnail.jpg" />
+
+    <!-- Twitter card defaults -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ArtikAi - AI Automation Agency" />
+    <meta name="twitter:description" content="AI chat, phone agents, and marketing automations." />
+    <meta name="twitter:image" content="/thumbnail.jpg" />
+
+    <!-- Optional: add a canonical link per page via react-helmet-async; omit here to avoid wrong domain -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Spline viewer web component -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.57/build/spline-viewer.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Voiceflow Chat Widget -->
+    <script type="text/javascript">
+      (function(d, t) {
+          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+          v.onload = function() {
+            window.voiceflow.chat.load({
+              verify: { projectID: '68c0633002f711654c31bc3f' },
+              url: 'https://general-runtime.voiceflow.com',
+              versionID: 'production',
+              voice: {
+                url: 'https://runtime-api.voiceflow.com'
+              }
+            });
+          }
+          v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs'; v.type = 'text/javascript'; s.parentNode.insertBefore(v, s);
+      })(document, 'script');
+    </script>
+  </body>
+</html>
