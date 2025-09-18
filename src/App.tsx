@@ -10,8 +10,8 @@ import DemoVideo from "./components/DemoVideo";
 import IntegrationsStrip from './components/IntegrationsStrip';
 import FeatureTriad from './components/FeatureTriad';
 import CodeVsUI from './components/CodeVsUI';
-import RunTweakRepeat from './components/RunTweakRepeat';
-import CaseStudies from './components/CaseStudies';
+import WhyChoose from './components/WhyChoose';
+import Testimonials from './components/Testimonials';
 import CustomersCTA from './components/CustomersCTA';
 import NothingYouCantAutomate from './components/NothingYouCantAutomate';
 import TestimonialsRow from './components/TestimonialsRow';
@@ -38,13 +38,13 @@ export default function App() {
                         Flexible AI workflow automation
                       </div>
                       <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
-                        <span className="block max-w-fit mx-auto rounded-2xl bg-black/50 px-4 py-3 ring-1 ring-white/10 backdrop-blur-md shadow-[0_8px_30px_rgba(2,6,23,0.45)] mt-2 sm:mt-3 lg:mt-4">
-                          <span className="block">Automate the busywork.</span>
-                          <span className="block">Grow what matters.</span>
+                        <span className="block max-w-fit mt-2 sm:mt-3 lg:mt-4">
+                          <span className="block">AUTOMATE</span>
+                          <span className="block">EVERYTHING.</span>
                         </span>
                       </h1>
                       <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg">
-                        AI apps, chat, and calling that turn clicks into customers-without adding headcount.
+                        AI-powered customer support, marketing, and sales tools to scale your business without limits
                       </p>
                       <div className="mt-8 flex flex-wrap items-center gap-3">
                         <Link
@@ -83,8 +83,35 @@ export default function App() {
             <IntegrationsStrip />
             <FeatureTriad />
             <CodeVsUI />
-            <RunTweakRepeat />
-            <CaseStudies />
+            <WhyChoose />
+            <Testimonials
+              hero={{
+                quote: "A local service business increased qualified leads by 70% in 30 days using ArtiKai automations.",
+                author: "Sarah Johnson",
+                title: "CEO, TechFlow Solutions",
+                avatarSrc: "/avatars/sarah.png",
+              }}
+              items={[
+                {
+                  quote: "ArtiKai transformed our lead generation. We're closing 3x more deals.",
+                  author: "Mike Chen",
+                  title: "Digital Marketing Pro",
+                  rating: 5,
+                },
+                {
+                  quote: "The AI chatbots handle 90% of customer inquiries. Game changer.",
+                  author: "Lisa Rodriguez",
+                  title: "E-commerce Ventures",
+                  rating: 5,
+                },
+                {
+                  quote: "ROI was immediate. Saved 25 hours per week on manual tasks.",
+                  author: "David Park",
+                  title: "Growth Consulting",
+                  rating: 5,
+                },
+              ]}
+            />
             <CustomersCTA />
             <NothingYouCantAutomate />
             <TestimonialsRow />
@@ -95,3 +122,7 @@ export default function App() {
     </div>
   );
 }
+
+
+
+

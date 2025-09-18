@@ -105,24 +105,45 @@ button:focus, a:focus { outline: 1px solid #00D4FF; outline-offset: 2px; }
 /* Prevent text selection on animated elements */
 canvas { user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
 
-/* Logo marquee animation and edge fade */
-@keyframes logo-scroll {
+/* Logo carousel animation and edge fade */
+@keyframes logo-carousel-scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.logo-marquee { 
-  display: inline-flex; 
-  gap: 1.5rem; 
-  will-change: transform; 
-  white-space: nowrap; 
-  animation: logo-scroll 28s linear infinite; 
+@keyframes logo-carousel-scroll-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
-.mask-fade-x { 
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+.logo-carousel {
+  position: relative;
+}
+.logo-row {
+  overflow: hidden;
+}
+.logo-track {
+  display: inline-flex;
+  gap: 1.5rem;
+  will-change: transform;
+  white-space: nowrap;
+  animation: logo-carousel-scroll 32s linear infinite;
+}
+.logo-track--reverse {
+  animation: logo-carousel-scroll-reverse 36s linear infinite;
+  transform: translateX(-50%);
+}
+.logo-carousel:hover .logo-track,
+.logo-carousel:hover .logo-track--reverse {
+  animation-play-state: paused;
+}
+.mask-fade {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 @media (prefers-reduced-motion: reduce) {
-  .logo-marquee { animation: none !important; }
+  .logo-track,
+  .logo-track--reverse {
+    animation: none !important;
+  }
 }
 
 /* Dissolve light content into hero */
@@ -142,6 +163,13 @@ canvas { user-select: none; -webkit-user-select: none; -moz-user-select: none; -
     pointer-events: none;
   }
 }
+
+
+
+
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 
 

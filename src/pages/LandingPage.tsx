@@ -4,10 +4,67 @@ import { Helmet } from 'react-helmet-async';
 import { MessageSquare, Phone, Plug, Globe, LayoutGrid, Megaphone, CheckCircle2, ArrowRight, Twitter, Linkedin, Github } from 'lucide-react';
 import DemoVideo from '../components/DemoVideo';
 import HeroSpline from '../components/HeroSpline';
+import FeatureRail from '../components/FeatureRail';
+import InfiniteLogoCarousel from '../components/InfiniteLogoCarousel';
 
+const integrationLogos = [
+  { name: 'OpenAI', icon: '/integrations/openai-color.svg' },
+  { name: 'Slack', icon: '/integrations/slack-color.svg' },
+  { name: 'Notion', icon: '/integrations/notion-color.svg' },
+  { name: 'Google Drive', icon: '/integrations/google-drive-color.svg' },
+  { name: 'Airtable', icon: '/integrations/airtable-color.svg' },
+  { name: 'Zapier', icon: '/integrations/zapier-color.svg' },
+  { name: 'Instagram', icon: '/integrations/instagram-2016-logo-svgrepo-com.svg' },
+  { name: 'Facebook', icon: '/integrations/facebook-icon-logo-svgrepo-com.svg' },
+  { name: 'Apple', icon: '/integrations/apple-logo-svgrepo-com.svg' },
+  { name: 'Messenger', icon: '/integrations/facebook-messenger-3-logo-svgrepo-com.svg' },
+  { name: 'Google', icon: '/integrations/google-icon-logo-svgrepo-com.svg' },
+  { name: 'Snapchat', icon: '/integrations/snapchat-logo-svgrepo-com.svg' },
+  { name: 'SoundCloud', icon: '/integrations/soundcloud-logo-svgrepo-com.svg' },
+  { name: 'Airbnb', icon: '/integrations/airbnb-2-logo-svgrepo-com.svg' },
+];
 function LandingPage() {
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
   const canonicalUrl = origin ? `${origin}/` : undefined;
+
+  const featureItems = [
+    {
+      title: 'AI Customer Support & Chatbots',
+      body: 'Instantly respond 24/7 with intelligent automation',
+      href: '/offerings/support',
+      icon: <MessageSquare className="h-5 w-5" />,
+    },
+    {
+      title: 'AI Phone Callers',
+      body: 'Automated outbound & inbound calls that convert',
+      href: '/offerings/phone',
+      icon: <Phone className="h-5 w-5" />,
+    },
+    {
+      title: 'CRM Integrations & Appointment Setting',
+      body: 'Never miss a lead again with smart scheduling',
+      href: '/offerings/crm',
+      icon: <Plug className="h-5 w-5" />,
+    },
+    {
+      title: 'AI Website Creation',
+      body: 'Smart, conversion-ready websites in minutes',
+      href: '/offerings/websites',
+      icon: <Globe className="h-5 w-5" />,
+    },
+    {
+      title: 'AI App Creation',
+      body: 'Give your business a more professional app',
+      href: '/offerings/apps',
+      icon: <LayoutGrid className="h-5 w-5" />,
+    },
+    {
+      title: 'AI Ad Creatives & Marketing',
+      body: 'Facebook & Instagram ads that convert',
+      href: '/offerings/ads',
+      icon: <Megaphone className="h-5 w-5" />,
+    },
+  ];
 
 
   return (
@@ -44,6 +101,19 @@ function LandingPage() {
 
       {/* Hero */}
       <HeroSpline />
+
+      {/* Integrations */}
+      <section id="integrations" className="py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <p className="text-sm uppercase tracking-[0.35em] text-cyan-400/70">Integrations</p>
+            <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight">Connect your stack in minutes</h2>
+            <p className="mt-3 text-gray-400">Sync ArtikAI with the tools your team already relies on across ops, sales, and support.</p>
+          </div>
+          <InfiniteLogoCarousel logos={integrationLogos} className="mt-10" />
+        </div>
+      </section>
+
       {/* CTA integrated under headline (no absolute or negative margins) */}
 
       {/* Demo Video Section */}
@@ -77,42 +147,13 @@ function LandingPage() {
         </div>
       </section>
       {/* Services */}
-      <section id="services" className="py-20 bg-gradient-to-b from-gray-950 to-gray-900">
+      <section id="services" className="py-12 md:py-16 bg-gradient-to-b from-gray-950 to-gray-900">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center">Powerful Automations, Simple Setup</h2>
           <p className="mt-3 text-gray-300 text-center max-w-2xl mx-auto">Deploy AI across your customer journey in days, not months.</p>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="rounded-2xl border border-white/5 bg-gray-900 p-6 shadow-md hover:shadow-cyan-500/10 transition-shadow">
-              <div className="w-12 h-12 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center"><MessageSquare className="w-6 h-6" /></div>
-              <h3 className="mt-4 text-xl font-semibold">AI Customer Support & Chatbots</h3>
-              <p className="mt-2 text-gray-400">Instantly respond 24/7 with intelligent automation.</p>
-            </div>
-            <div className="rounded-2xl border border-white/5 bg-gray-900 p-6 shadow-md hover:shadow-cyan-500/10 transition-shadow">
-              <div className="w-12 h-12 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center"><Phone className="w-6 h-6" /></div>
-              <h3 className="mt-4 text-xl font-semibold">AI Phone Callers</h3>
-              <p className="mt-2 text-gray-400">Automated outbound and inbound calls that convert.</p>
-            </div>
-            <div className="rounded-2xl border border-white/5 bg-gray-900 p-6 shadow-md hover:shadow-cyan-500/10 transition-shadow">
-              <div className="w-12 h-12 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center"><Plug className="w-6 h-6" /></div>
-              <h3 className="mt-4 text-xl font-semibold">CRM Integrations & Appointment Setting</h3>
-              <p className="mt-2 text-gray-400">Never miss a lead again with smart scheduling.</p>
-            </div>
-            <div className="rounded-2xl border border-white/5 bg-gray-900 p-6 shadow-md hover:shadow-cyan-500/10 transition-shadow">
-              <div className="w-12 h-12 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center"><Globe className="w-6 h-6" /></div>
-              <h3 className="mt-4 text-xl font-semibold">AI Website Creation</h3>
-              <p className="mt-2 text-gray-400">Smart, conversion-ready websites in minutes.</p>
-            </div>
-            <div className="rounded-2xl border border-white/5 bg-gray-900 p-6 shadow-md hover:shadow-cyan-500/10 transition-shadow">
-              <div className="w-12 h-12 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center"><LayoutGrid className="w-6 h-6" /></div>
-              <h3 className="mt-4 text-xl font-semibold">AI App Creation</h3>
-              <p className="mt-2 text-gray-400">AI app creation to give your business a more professional look.</p>
-            </div>
-            <div className="rounded-2xl border border-white/5 bg-gray-900 p-6 shadow-md hover:shadow-cyan-500/10 transition-shadow">
-              <div className="w-12 h-12 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center"><Megaphone className="w-6 h-6" /></div>
-              <h3 className="mt-4 text-xl font-semibold">AI Ad Creatives & Marketing</h3>
-              <p className="mt-2 text-gray-400">Facebook & Instagram ads that convert.</p>
-            </div>
+          <div className="mt-10 md:mt-12">
+            <FeatureRail items={featureItems} />
           </div>
         </div>
       </section>

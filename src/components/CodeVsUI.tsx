@@ -1,4 +1,4 @@
-﻿import Section from './layout/Section';
+import Section from './layout/Section';
 
 export default function CodeVsUI(){
   return (
@@ -6,8 +6,8 @@ export default function CodeVsUI(){
       <div className="grid grid-cols-1 sm:grid-cols-2">
         <div>
           <div className="kicker">Build the way you like</div>
-          <h2 className="h2" style={{margin:'8px 0 12px'}}>Code when you need it, UI when you donâ€™t</h2>
-          <p className="lead">Drag blocks for speed. Drop to TypeScript for power. The same runtime powers both, so thereâ€™s no rewrite tax.</p>
+          <h2 className="h2" style={{margin:'8px 0 12px'}}>Code when you need it, UI when you don't</h2>
+          <p className="lead">Drag blocks for speed. Drop to TypeScript for power. The same runtime powers both, so there's no rewrite tax.</p>
           <div className="hr"></div>
           <ul style={{margin:0, paddingLeft:18, color:'var(--muted)'}}>
             <li>Serverless or self-hosted runners</li>
@@ -33,5 +33,6 @@ export default function CodeVsUI(){
     </Section>
   );
 }
+
 
 
