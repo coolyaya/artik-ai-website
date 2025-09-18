@@ -476,10 +476,7 @@ pre{
 .spline *{
   pointer-events: auto !important;
 }
-.hero__media spline-viewer{
-  display:block; width:100%; height:100%;
-  background: transparent !important;
-}
+
 
 /* (reverted) no horizontal nudge for hero Spline */
 
@@ -499,3 +496,4 @@ pre{
 
 /* If a fixed header overlaps, keep it above without covering the canvas elsewhere */
 .header, nav{ position: relative; z-index: 3; }
+

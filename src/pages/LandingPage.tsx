@@ -9,7 +9,6 @@ function LandingPage() {
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
   const canonicalUrl = origin ? `${origin}/` : undefined;
 
-  // Spline web component is loaded once in index.html.
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
@@ -174,7 +173,3 @@ function LandingPage() {
 }
 
 export default LandingPage;
-
-
-
-

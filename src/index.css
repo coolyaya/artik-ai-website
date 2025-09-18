@@ -105,29 +105,6 @@ button:focus, a:focus { outline: 1px solid #00D4FF; outline-offset: 2px; }
 /* Prevent text selection on animated elements */
 canvas { user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
 
-/* Animated top banner background for homepage */
-.banner-anim {
-  position: absolute;
-  inset: 0 0 auto 0; /* top banner */
-  /* Increased by ~3in (~288px) */
-  height: 708px;
-  pointer-events: auto;
-  z-index: 0;
-  /* Remove visual overlays to keep animation unobstructed */
-  background: transparent;
-  overflow: hidden;
-}
-@media (min-width: 768px) {
-  /* Increased by ~3in (~288px) */
-  .banner-anim { height: 808px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .banner-anim::before,
-  .banner-anim::after { animation: none; }
-}
-
-/* (reverted) no horizontal nudge for banner Spline */
-
 /* Logo marquee animation and edge fade */
 @keyframes logo-scroll {
   0% { transform: translateX(0); }
@@ -165,5 +142,6 @@ canvas { user-select: none; -webkit-user-select: none; -moz-user-select: none; -
     pointer-events: none;
   }
 }
+
 
 
