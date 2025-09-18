@@ -1,4 +1,4 @@
-import { Zap, MessageSquare, Code2 } from 'lucide-react';
+﻿import { Zap, MessageSquare, Code2 } from 'lucide-react';
 import Section from './layout/Section';
 
 const items = [
@@ -10,9 +10,9 @@ const items = [
 export default function FeatureTriad(){
   return (
     <Section id="features">
-      <div className="grid grid-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((it,i)=>(
-          <div key={i} className="card">
+          <div key={i} className="card min-w-0">
             <div className="badge">{it.icon}<span>Feature</span></div>
             <h3 style={{margin:'10px 0 6px', fontSize:20}}>{it.title}</h3>
             <p className="lead">{it.copy}</p>
@@ -25,3 +25,4 @@ export default function FeatureTriad(){
     </Section>
   );
 }
+
