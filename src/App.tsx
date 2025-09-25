@@ -9,7 +9,6 @@ import Container from "@/components/ui/Container";
 import DemoVideo from "./components/DemoVideo";
 import IntegrationsStrip from './components/IntegrationsStrip';
 import FeatureTriad from './components/FeatureTriad';
-import CodeVsUI from './components/CodeVsUI';
 import WhyChoose from './components/WhyChoose';
 import Testimonials from './components/Testimonials';
 import CustomersCTA from './components/CustomersCTA';
@@ -82,7 +81,6 @@ export default function App() {
           <div style={{ background: 'var(--bg)', color: 'var(--text)', backgroundImage: 'var(--glow)', backgroundAttachment: 'fixed' }}>
             <IntegrationsStrip />
             <FeatureTriad />
-            <CodeVsUI />
             <WhyChoose />
             <Testimonials
               hero={{
@@ -122,6 +120,8 @@ export default function App() {
     </div>
   );
 }
+
+
 
 
 
