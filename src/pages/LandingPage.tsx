@@ -1,11 +1,12 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { MessageSquare, Phone, Plug, Globe, LayoutGrid, Megaphone, CheckCircle2, ArrowRight, Twitter, Linkedin, Github } from 'lucide-react';
+import { ArrowRight, Twitter, Linkedin, Github } from 'lucide-react';
 import DemoVideo from '../components/DemoVideo';
 import HeroSpline from '../components/HeroSpline';
 import FeatureRail from '../components/FeatureRail';
 import InfiniteLogoCarousel from '../components/InfiniteLogoCarousel';
+import WhyChoose from '../components/WhyChoose';
 
 const integrationLogos = [
   { name: 'OpenAI', icon: '/integrations/openai-color.svg' },
@@ -29,40 +30,19 @@ function LandingPage() {
 
   const featureItems = [
     {
-      title: 'AI Customer Support & Chatbots',
-      body: 'Instantly respond 24/7 with intelligent automation',
-      href: '/offerings/support',
-      icon: <MessageSquare className="h-5 w-5" />,
+      title: 'Run AI workflows',
+      body: 'Automate ops with reliable, observable flows triggered by webhooks, forms, or schedules.',
+      href: '/features/workflows',
     },
     {
-      title: 'AI Phone Callers',
-      body: 'Automated outbound & inbound calls that convert',
-      href: '/offerings/phone',
-      icon: <Phone className="h-5 w-5" />,
+      title: 'Chat with your data',
+      body: 'Connect your KB, files, or DBs and let models answer with citations and guardrails.',
+      href: '/features/chat-with-your-data',
     },
     {
-      title: 'CRM Integrations & Appointment Setting',
-      body: 'Never miss a lead again with smart scheduling',
-      href: '/offerings/crm',
-      icon: <Plug className="h-5 w-5" />,
-    },
-    {
-      title: 'AI Website Creation',
-      body: 'Smart, conversion-ready websites in minutes',
-      href: '/offerings/websites',
-      icon: <Globe className="h-5 w-5" />,
-    },
-    {
-      title: 'AI App Creation',
-      body: 'Give your business a more professional app',
-      href: '/offerings/apps',
-      icon: <LayoutGrid className="h-5 w-5" />,
-    },
-    {
-      title: 'AI Ad Creatives & Marketing',
-      body: 'Facebook & Instagram ads that convert',
-      href: '/offerings/ads',
-      icon: <Megaphone className="h-5 w-5" />,
+      title: 'Ship UIs or just code',
+      body: 'Start with simple UI blocks. When you need control, drop to code without rewrites.',
+      href: '/features/ship-uis-or-code',
     },
   ];
 
@@ -158,21 +138,9 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center">How It Works</h2>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[{ title: 'Connect', desc: 'Plug into your CRM, phone, and chat tools in minutes.' }, { title: 'Train', desc: 'Upload docs and FAQs; we fine-tune for your workflows.' }, { title: 'Automate', desc: 'Launch AI chat, voice, and automations that drive revenue.' }].map((s, i) => (
-              <div key={s.title} className="rounded-2xl border border-white/5 bg-gray-900 p-6">
-                <div className="inline-flex items-center gap-2 text-cyan-400"><CheckCircle2 className="w-5 h-5" /><span className="text-sm font-semibold">Step {i + 1}</span></div>
-                <h3 className="mt-3 text-xl font-semibold">{s.title}</h3>
-                <p className="mt-2 text-gray-400">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
+      <WhyChoose />
+
 
       {/* Testimonial */}
       <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-950">
@@ -214,3 +182,4 @@ function LandingPage() {
 }
 
 export default LandingPage;
+

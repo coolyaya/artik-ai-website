@@ -26,26 +26,33 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
   }, []);
 
   const isLight = variant === "light";
+  const headerBase = `h-14 md:h-16 flex items-center sticky top-0 z-50 border-b transition-colors ${
+    isLight ? "border-slate-200" : "border-white/10"
+  }`;
+  const backgroundClass = scrolled
+    ? isLight
+      ? "bg-white/80 supports-[backdrop-filter]:bg-white/60 backdrop-blur"
+      : "bg-white/5 supports-[backdrop-filter]:bg-white/5 backdrop-blur"
+    : isLight
+    ? "bg-white"
+    : "bg-white/5 supports-[backdrop-filter]:bg-white/5 backdrop-blur";
 
   return (
-    <header
-      className={
-        `${isLight ? "border-slate-200" : "border-white/10"} sticky top-0 z-50 border-b transition-colors ` +
-        (scrolled
-          ? isLight
-            ? "bg-white/80 supports-[backdrop-filter]:bg-white/60 backdrop-blur"
-            : "bg-white/5 supports-[backdrop-filter]:bg-white/5 backdrop-blur"
-          : isLight
-          ? "bg-white"
-          : "bg-white/5 supports-[backdrop-filter]:bg-white/5 backdrop-blur")
-      }
-      aria-label="Primary"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-3 flex-1">
-          <Link to="/" className={`flex items-center gap-2 font-semibold ${isLight ? "text-slate-900" : "text-white"}`}>
-            <span className="inline-block h-6 w-6 rounded-md bg-cyan-500" aria-hidden />
-            <span className={isLight ? "text-slate-900" : "text-white"}>ArtikAi</span>
+    <header className={`${headerBase} ${backgroundClass}`} aria-label="Primary">
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-6 flex items-center justify-between">
+        <div className="flex flex-1 items-center">
+          <Link to="/" className="flex items-center gap-3">
+            <img
+              src="/brand/artikai-icon.svg"
+              alt="ArtikAi"
+              width={28}
+              height={28}
+              className="rounded-lg"
+              loading="lazy"
+            />
+            <span className={`text-base md:text-lg font-semibold tracking-tight ${isLight ? "text-slate-900" : "text-white"}`}>
+              ArtikAi
+            </span>
           </Link>
         </div>
 
@@ -55,7 +62,11 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
               key={l.label}
               to={l.to}
               className={({ isActive }) =>
-                `${isLight ? "text-slate-700 hover:text-slate-900" : "text-white/80 hover:text-white"} text-sm transition-colors ` +
+                `${
+                  isLight
+                    ? "text-slate-700 hover:text-slate-900"
+                    : "text-white/80 hover:text-white"
+                } text-sm transition-colors ` +
                 (isActive ? (isLight ? "text-slate-900" : "text-white") : "")
               }
             >
@@ -64,21 +75,20 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
           ))}
         </nav>
 
-        {/* Keep right-side bar space but without buttons */}
-        <div className="hidden md:flex items-center gap-3 flex-1 justify-end" aria-hidden="true" />
-
-        <button
-          className={`md:hidden inline-flex items-center justify-center rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
-            isLight ? "text-slate-900" : "text-white"
-          }`}
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <div className="flex flex-1 items-center justify-end">
+          <div className="hidden md:flex items-center gap-3" aria-hidden="true" />
+          <button
+            className={`md:hidden inline-flex items-center justify-center rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
+              isLight ? "text-slate-900" : "text-white"
+            }`}
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile menu */}
       {open && (
         <div
           className={`md:hidden backdrop-blur border-t ${
@@ -96,7 +106,6 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
                 {l.label}
               </Link>
             ))}
-            {/* Removed login and get started buttons from mobile menu */}
           </div>
         </div>
       )}
