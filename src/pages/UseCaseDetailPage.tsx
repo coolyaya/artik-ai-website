@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+ï»¿import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -33,7 +33,7 @@ const useCaseContent: Record<UseCaseSlug, UseCaseContent> = {
     heroMetrics: [
       { label: "Auto-resolved tickets", value: "68%" },
       { label: "Post-automation CSAT", value: "4.7 / 5" },
-      { label: "Channels", value: "Chat · Email · SMS" },
+      { label: "Channels", value: "Chat / Email / SMS" },
     ],
     summaryBullets: [
       "Train on help-center docs, SOPs, and transcripts in minutes with guardrails you control.",
@@ -239,7 +239,7 @@ const useCaseContent: Record<UseCaseSlug, UseCaseContent> = {
   apps: {
     name: "AI App Creation",
     heroLabel: "Internal tooling",
-    heroHeadline: "Prototype internal apps and portals 3× faster",
+    heroHeadline: "Prototype internal apps and portals 3x faster",
     heroDescription:
       "Combine drag-and-drop UI blocks with AI-generated logic so teams can ship polished workflows without waiting on engineering queues.",
     heroMetrics: [
@@ -375,7 +375,7 @@ export default function UseCaseDetailPage() {
   return (
     <main className="page-animate min-h-screen bg-[#050B1A] text-white">
       <Helmet>
-        <title>{${config.name} — Use Cases | ArtikAi}</title>
+        <title>{`${config.name} - Use Cases | ArtikAi`}</title>
         <meta name="description" content={config.seoDescription} />
       </Helmet>
       <Navbar variant="dark" />
@@ -497,7 +497,7 @@ export default function UseCaseDetailPage() {
               </p>
             </div>
             <Link
-              to={/book?service=}
+              to={`/book?service=${config.serviceId}`}
               className="inline-flex items-center gap-2 rounded-2xl bg-cyan-500 px-5 py-3 text-sm font-semibold text-black transition hover:bg-cyan-400"
             >
               Book a demo <ArrowRight className="h-4 w-4" />
@@ -511,7 +511,7 @@ export default function UseCaseDetailPage() {
             {otherCases.map((item) => (
               <Link
                 key={item.slug}
-                to={/use-cases/}
+                to={`/use-cases/${item.slug}`}
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-white/80 transition hover:border-cyan-300/60 hover:text-white"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
@@ -526,4 +526,7 @@ export default function UseCaseDetailPage() {
     </main>
   );
 }
+
+
+
 
