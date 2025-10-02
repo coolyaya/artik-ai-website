@@ -18,7 +18,7 @@ type UseCaseContent = {
   automations: string[];
   integrations: string[];
   proofPoints: string[];
-  video: { src: string; poster?: string; caption: string };
+  video?: { src: string; poster?: string; caption: string };
   seoDescription: string;
   serviceId: string;
 };
@@ -69,11 +69,6 @@ const useCaseContent: Record<UseCaseSlug, UseCaseContent> = {
       "Global retail brand achieved 24/7 coverage with <2 minute SLA.",
       "Leaderboards track automation coverage by queue for every region.",
     ],
-    video: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4",
-      poster: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1200&q=80",
-      caption: "Live escalation handoff from the ArtikAi support copilot inside a customer inbox.",
-    },
     seoDescription: "Automate frontline support with AI chatbots that deflect tickets, summarize escalations, and keep CSAT high.",
     serviceId: "chat",
   },
@@ -122,11 +117,6 @@ const useCaseContent: Record<UseCaseSlug, UseCaseContent> = {
       "B2B agency booked 3.2x more consults without adding headcount.",
       "Every call payload syncs to pipeline dashboards for RevOps oversight.",
     ],
-    video: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/Skiing.mp4",
-      poster: "https://images.unsplash.com/photo-1485217988980-11786ced9454?auto=format&fit=crop&w=1200&q=80",
-      caption: "ArtikAi voice agent confirming an appointment and logging the transcript to the CRM.",
-    },
     seoDescription: "Let AI phone callers qualify leads, follow up fast, and log every interaction automatically.",
     serviceId: "caller",
   },
@@ -175,11 +165,6 @@ const useCaseContent: Record<UseCaseSlug, UseCaseContent> = {
       "Professional services firm eliminated manual rescheduling with automated reminders.",
       "RevOps teams receive daily digest of stuck deals with AI-generated next steps.",
     ],
-    video: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/SandPatterns.mp4",
-      poster: "https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1200&q=80",
-      caption: "Scheduling assistant syncing CRM stages with live calendar availability.",
-    },
     seoDescription: "Automate CRM updates and appointment scheduling with AI that keeps every lead engaged.",
     serviceId: "crm",
   },
@@ -228,11 +213,6 @@ const useCaseContent: Record<UseCaseSlug, UseCaseContent> = {
       "B2B SaaS company tracks lift with automated weekly landing page reports.",
       "SEO refresh workflow updates metadata and redirects in minutes, not days.",
     ],
-    video: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/GoldenGateBridge.mp4",
-      poster: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-      caption: "AI drafts a landing page hero and deploys to production in one click.",
-    },
     seoDescription: "Launch conversion-focused websites with AI-generated copy, imagery, and analytics built in.",
     serviceId: "web",
   },
@@ -281,11 +261,6 @@ const useCaseContent: Record<UseCaseSlug, UseCaseContent> = {
       "Ops team replaced 14 spreadsheets with one shared control center.",
       "Security teams love the built-in RBAC and audit logging exported to SIEM.",
     ],
-    video: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/Waves.mp4",
-      poster: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
-      caption: "ArtikAi assembling a customer onboarding portal with automated logic blocks.",
-    },
     seoDescription: "Build internal apps and portals faster with AI-generated UI, logic, and deployments.",
     serviceId: "ai-app",
   },
@@ -334,11 +309,6 @@ const useCaseContent: Record<UseCaseSlug, UseCaseContent> = {
       "Agencies deliver full campaign packs including scripts, storyboards, and variants automatically.",
       "Spend pacing alerts saved 18% of ad budget from fatigue.",
     ],
-    video: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/Typing.mp4",
-      poster: "https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=1200&q=80",
-      caption: "Campaign builder generating multi-channel ad variants and scripts in real time.",
-    },
     seoDescription: "Generate and optimize ad creatives, landing pages, and nurture flows with AI insights.",
     serviceId: "ads",
   },
@@ -367,6 +337,11 @@ export default function UseCaseDetailPage() {
   if (!config || !slug) {
     return null;
   }
+
+  const video = config.video;
+  const proofSectionLayout = video
+    ? "grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch"
+    : "grid gap-8";
 
   const otherCases = (Object.keys(useCaseContent) as UseCaseSlug[])
     .filter((key) => key !== slug)
@@ -429,14 +404,16 @@ export default function UseCaseDetailPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
-          <figure className="overflow-hidden rounded-3xl border border-white/10 bg-black/40">
-            <video className="aspect-video w-full bg-black object-cover" controls preload="none" poster={config.video.poster}>
-              <source src={config.video.src} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <figcaption className="px-5 py-4 text-sm text-white/60">{config.video.caption}</figcaption>
-          </figure>
+        <div className={proofSectionLayout}>
+          {video && (
+            <figure className="overflow-hidden rounded-3xl border border-white/10 bg-black/40">
+              <video className="aspect-video w-full bg-black object-cover" controls preload="none" poster={video.poster}>
+                <source src={video.src} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <figcaption className="px-5 py-4 text-sm text-white/60">{video.caption}</figcaption>
+            </figure>
+          )}
           <div className="rounded-3xl border border-white/10 bg-white/5 p-8">
             <h3 className="text-xl font-semibold text-white">Proof points from the field</h3>
             <ul className="mt-6 space-y-4 text-sm text-white/70">

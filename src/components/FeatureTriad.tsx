@@ -17,8 +17,8 @@ type FeatureItem = {
     headline: string;
     bullets: string[];
   };
-  media: {
-    src: string;
+  media?: {
+    src?: string;
     poster?: string;
     caption: string;
   };
@@ -39,11 +39,6 @@ const items: FeatureItem[] = [
         "Resolves routine questions across chat, email, SMS, and social DMs.",
         "Detects complex intent and routes to human reps with full conversation context.",
       ],
-    },
-    media: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4",
-      poster: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=800&q=80",
-      caption: "Live handoff from the ArtikAi support copilot inside a customer inbox.",
     },
     metrics: [
       { label: "Jan", value: 42 },
@@ -68,11 +63,6 @@ const items: FeatureItem[] = [
         "Logs transcripts, call outcomes, and next steps directly inside your CRM.",
       ],
     },
-    media: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/Skiing.mp4",
-      poster: "https://images.unsplash.com/photo-1485217988980-11786ced9454?auto=format&fit=crop&w=800&q=80",
-      caption: "Preview of ArtikAi voice agent confirming a scheduled appointment.",
-    },
     metrics: [
       { label: "Jan", value: 12 },
       { label: "Mar", value: 21 },
@@ -95,11 +85,6 @@ const items: FeatureItem[] = [
         "Automatically qualifies leads, proposes times, and books meetings on shared calendars.",
         "Sends confirmations, reminders, and post-call tasks in Slack or email.",
       ],
-    },
-    media: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/SandPatterns.mp4",
-      poster: "https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=800&q=80",
-      caption: "Dashboard view of ArtikAi syncing CRM stages with live calendar data.",
     },
     metrics: [
       { label: "Jan", value: 18 },
@@ -124,11 +109,6 @@ const items: FeatureItem[] = [
         "Hands-off publishing to Webflow, Framer, or a lightweight ArtikAi-hosted site.",
       ],
     },
-    media: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/GoldenGateBridge.mp4",
-      poster: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
-      caption: "AI drafts a landing page hero and instantly pushes changes to production.",
-    },
     metrics: [
       { label: "Jan", value: 1.8 },
       { label: "Mar", value: 2.5 },
@@ -152,11 +132,6 @@ const items: FeatureItem[] = [
         "Ships responsive, branded apps with deployment pipelines managed for you.",
       ],
     },
-    media: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/Waves.mp4",
-      poster: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
-      caption: "Walkthrough of ArtikAi assembling a customer onboarding portal in minutes.",
-    },
     metrics: [
       { label: "Jan", value: 24 },
       { label: "Mar", value: 38 },
@@ -179,11 +154,6 @@ const items: FeatureItem[] = [
         "Auto-generates variant ads and landing pages based on performance data.",
         "Feeds results back into Meta, Google, and TikTok to optimize spend automatically.",
       ],
-    },
-    media: {
-      src: "https://storage.googleapis.com/coverr-main/mp4/Typing.mp4",
-      poster: "https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=800&q=80",
-      caption: "Campaign builder generating multi-channel ad variants and scripts.",
     },
     metrics: [
       { label: "Jan", value: 1.3 },
@@ -213,6 +183,12 @@ export default function FeatureTriad() {
   const activeItem = activeIndex === null ? null : items[activeIndex];
   const modalTitleId = activeIndex === null ? undefined : `feature-modal-${activeIndex}-title`;
   const modalDescId = activeIndex === null ? undefined : `feature-modal-${activeIndex}-description`;
+
+  const mediaPoster = activeItem?.media?.poster;
+  const mediaCaption = activeItem?.media?.caption;
+  const modalGridLayout = mediaPoster
+    ? "grid gap-6 lg:grid-cols-[1.35fr_1fr]"
+    : "grid gap-6";
 
   useEffect(() => {
     if (activeIndex === null) return;
@@ -317,21 +293,22 @@ export default function FeatureTriad() {
               ))}
             </ul>
 
-            <div className="mt-6 grid gap-6 lg:grid-cols-[1.35fr_1fr]">
-              <figure className="overflow-hidden rounded-xl border border-white/10 bg-black/30">
-                <video
-                  className="aspect-video w-full bg-black object-cover"
-                  controls
-                  preload="none"
-                  poster={activeItem.media.poster}
-                >
-                  <source src={activeItem.media.src} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <figcaption className="px-4 py-3 text-xs text-white/60">
-                  {activeItem.media.caption}
-                </figcaption>
-              </figure>
+            <div className={`mt-6 ${modalGridLayout}`}>
+              {mediaPoster && (
+                <figure className="overflow-hidden rounded-xl border border-white/10 bg-black/30">
+                  <img
+                    src={mediaPoster}
+                    alt={mediaCaption ?? activeItem.title}
+                    className="aspect-video w-full object-cover"
+                    loading="lazy"
+                  />
+                  {mediaCaption && (
+                    <figcaption className="px-4 py-3 text-xs text-white/60">
+                      {mediaCaption}
+                    </figcaption>
+                  )}
+                </figure>
+              )}
 
               <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                 <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-cyan-300">
@@ -378,4 +355,3 @@ export default function FeatureTriad() {
     </Section>
   );
 }
-
