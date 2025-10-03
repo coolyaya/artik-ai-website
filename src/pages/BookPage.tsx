@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from 'react-helmet-async';
+import Navbar from '@/components/Navbar';
 import { useNavigate, useLocation } from "react-router-dom";
 import { LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone } from "lucide-react";
 import { submitForm } from "../utils/submitForm";
@@ -112,7 +113,7 @@ export default function BookPage() {
   }, [showThanks]);
 
   return (
-    <main className="page-animate min-h-screen bg-black text-white">
+    <main className="page-animate min-h-screen bg-[#050B1A] text-white">
       <Helmet>
         <title>Book a Call – ArtikAi</title>
         <meta
@@ -127,6 +128,9 @@ export default function BookPage() {
           <meta property="og:url" content={`${window.location.origin}/book`} />
         )}
       </Helmet>
+
+      <Navbar variant="dark" />
+
       <section className="max-w-5xl mx-auto px-6 py-10">
           <a href="/" className="text-sm text-cyan-300 hover:underline">&lt; Back to site</a>
         <h1 className="rise mt-3 text-3xl md:text-4xl font-semibold" style={{ animationDelay: '40ms' }}>Book a free demo</h1>

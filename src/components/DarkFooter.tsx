@@ -12,7 +12,6 @@ export default function DarkFooter(){
           <div key={i} className="footer-col">
             <h4>{h}</h4>
             <a href="#">Overview</a>
-            <a href="#">Docs</a>
             <a href="#">Pricing</a>
             <a href="#">Contact</a>
           </div>
@@ -21,4 +20,5 @@ export default function DarkFooter(){
     </footer>
   );
 }
+
 

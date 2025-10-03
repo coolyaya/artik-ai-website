@@ -167,7 +167,7 @@ export default function PricingPage() {
                           key={item.service}
                           className={`group flex h-full flex-col rounded-3xl border p-6 transition hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-xl hover:shadow-cyan-500/20 ${
                             featured
-                              ? 'border-cyan-400/60 bg-gradient-to-b from-cyan-500/20 via-cyan-500/10 to-transparent'
+                              ? 'border-white/10 bg-gray-900/60'
                               : 'border-white/10 bg-gray-900/60'
                           }`}
                         >
@@ -186,7 +186,7 @@ export default function PricingPage() {
                               to="/book"
                               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-gray-950"
                             >
-                              Scope this build <ArrowRight className="h-4 w-4" />
+                              Book a Demo <ArrowRight className="h-4 w-4" />
                             </Link>
                             <Link to="/contact" className="text-sm font-medium text-cyan-200 hover:text-cyan-100">
                               Ask a question
@@ -219,7 +219,7 @@ export default function PricingPage() {
                           key={pkg.name}
                           className={`flex h-full flex-col rounded-3xl border p-6 transition hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-xl hover:shadow-cyan-500/20 ${
                             featured
-                              ? 'border-cyan-400/60 bg-gradient-to-b from-blue-600/25 via-blue-500/10 to-transparent'
+                              ? 'border-white/10 bg-gray-900/60'
                               : 'border-white/10 bg-gray-900/60'
                           }`}
                         >
@@ -235,10 +235,10 @@ export default function PricingPage() {
                           <p className="mt-4 text-sm leading-relaxed text-gray-300">{pkg.description}</p>
                           <div className="mt-auto flex items-center gap-3 pt-6">
                             <Link
-                              to="/contact"
+                              to="/book"
                               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-2 text-sm font-semibold text-gray-950"
                             >
-                              Build my retainer <ArrowRight className="h-4 w-4" />
+                              Book a Demo <ArrowRight className="h-4 w-4" />
                             </Link>
                             <Link to="/book" className="text-sm font-medium text-cyan-200 hover:text-cyan-100">
                               Book a strategy call

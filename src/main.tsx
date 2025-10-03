@@ -11,7 +11,6 @@ import PricingPage from './pages/PricingPage';
 import ContactPage from './pages/ContactPage';
 import ProductPage from './pages/ProductPage';
 import UseCaseDetailPage from './pages/UseCaseDetailPage';
-import DocsPage from './pages/DocsPage';
 import TemplatesPage from './pages/TemplatesPage';
 import './index.css';
 import './styles/site.css';
@@ -25,7 +24,6 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/product" element={<ProductPage />} />
           <Route path="/use-cases" element={<Navigate to="/use-cases/support" replace />} />
           <Route path="/use-cases/:slug" element={<UseCaseDetailPage />} />
-          <Route path="/docs" element={<DocsPage />} />
           <Route path="/templates" element={<TemplatesPage />} />
           <Route path="/book" element={<BookPage />} />
           <Route path="/services" element={<ServicesPage />} />
@@ -38,3 +36,5 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>
 );
 // Voiceflow widget is now injected in index.html per official instructions.
+
+

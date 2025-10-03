@@ -11,7 +11,6 @@ export default function Footer() {
             <ul className="mt-3 space-y-2 text-sm text-white/80">
               <li><a href="/#product" className="hover:text-white">Overview</a></li>
               <li><a href="/#templates" className="hover:text-white">Templates</a></li>
-              <li><a href="/#docs" className="hover:text-white">Docs</a></li>
             </ul>
           </div>
           <div>
@@ -62,4 +61,5 @@ export default function Footer() {
     </footer>
   );
 }
+
 

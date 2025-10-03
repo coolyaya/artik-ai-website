@@ -8,8 +8,8 @@ type NavbarProps = {
 
 const navLinks = [
   { label: "Templates", to: "/templates" },
-  { label: "Docs", to: "/docs" },
   { label: "Pricing", to: "/pricing" },
+  { label: "Contact", to: "/contact" },
 ];
 
 const useCaseItems = [
