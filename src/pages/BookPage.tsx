@@ -72,7 +72,7 @@ export default function BookPage() {
       const serviceName = selected?.name ?? "Unspecified";
       (form as any).service = serviceName;
 
-      console.log("[Book submit] final form →", form);
+      console.log("[Book submit] final form â†’", form);
       const r = await submitForm(form as any);
       console.log("[Book submit] done:", r);
       setShowThanks(true);   // open the message bubble/modal
@@ -115,7 +115,7 @@ export default function BookPage() {
   return (
     <main className="page-animate min-h-screen bg-[#050B1A] text-white">
       <Helmet>
-        <title>Book a Call – ArtikAi</title>
+        <title>Book a Call â€“ ArtikAi</title>
         <meta
           name="description"
           content="Schedule a free strategy call to see how AI can automate your support, sales, and marketing."
@@ -266,13 +266,6 @@ export default function BookPage() {
             <div className="flex justify-end gap-3">
               <button
                 type="button"
-                className="rounded-xl border px-4 py-2 text-sm"
-                onClick={() => setShowThanks(false)}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
                 className="rounded-xl bg-black px-4 py-2 text-sm text-white"
                 onClick={handleThanksOk}
               >
@@ -285,3 +278,4 @@ export default function BookPage() {
     </main>
   );
 }
+
