@@ -15,6 +15,7 @@ import CustomersCTA from './components/CustomersCTA';
 import NothingYouCantAutomate from './components/NothingYouCantAutomate';
 import TestimonialsRow from './components/TestimonialsRow';
 import DarkFooter from './components/DarkFooter';
+import DemoForm from "./components/DemoForm";
 
 export default function App() {
   return (
@@ -113,6 +114,19 @@ export default function App() {
             <CustomersCTA />
             <NothingYouCantAutomate />
             <TestimonialsRow />
+            <section className="py-24">
+              <Container>
+                <div className="mx-auto max-w-2xl text-center space-y-4">
+                  <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Book a demo</h2>
+                  <p className="text-base text-white/70">
+                    Tell us a little about your team and preferred time. We&apos;ll confirm by email within minutes.
+                  </p>
+                </div>
+                <div className="mt-10 flex justify-center">
+                  <DemoForm />
+                </div>
+              </Container>
+            </section>
             <DarkFooter />
           </div>
         </div>
