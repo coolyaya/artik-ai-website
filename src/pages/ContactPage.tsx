@@ -96,7 +96,7 @@ export default function ContactPage() {
           <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
             <form
               onSubmit={onSubmit}
-              className="rise space-y-5 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-500/10 backdrop-blur sm:p-8"
+              className="rise space-y-5 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-blue-600/10 backdrop-blur sm:p-8"
               style={{ animationDelay: '160ms' }}
             >
               <div>
@@ -170,9 +170,8 @@ export default function ContactPage() {
                 Book a short planning session and we'll map out the project, estimate platform costs, and plug you into the right package.
               </p>
               <div className="space-y-3 text-gray-300/90">
-                <p><span className="font-semibold text-white">Hours:</span> Mon-Fri, 9am-5pm ET</p>
-                <p><span className="font-semibold text-white">Email:</span> hello@artik.ai</p>
-                <p><span className="font-semibold text-white">Slack:</span> Included for active retainers</p>
+                <p><span className="font-semibold text-white">Hours:</span> 24/7</p>
+                <p><span className="font-semibold text-white">Email:</span> artikai@artikai.org</p>
               </div>
               <div className="flex flex-wrap gap-3 pt-1">
                 <a
