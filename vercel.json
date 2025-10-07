@@ -2,6 +2,6 @@
   "functions": {
     "api/*.ts": { "runtime": "nodejs20.x" }
   },
-  "builds": [{ "src": "vite.config.ts", "use": "@vercel/static-build" }],
+  "builds": [{ "src": "package.json", "use": "@vercel/static-build" }],
   "outputDirectory": "dist"
 }
