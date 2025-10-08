@@ -2,6 +2,7 @@
   "functions": {
     "api/*.ts": { "runtime": "nodejs20.x" }
   },
-  "builds": [{ "src": "package.json", "use": "@vercel/static-build" }],
-  "outputDirectory": "dist"
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
