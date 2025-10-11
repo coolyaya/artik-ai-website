@@ -7,7 +7,6 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 
 const baseConfig = tseslint.config(
   {
-    // add more ignores here
     ignores: ['dist', 'playwright-report', 'test-results', '.revert-backup/**', '**/*.d.ts'],
   },
   {
@@ -32,6 +31,8 @@ const baseConfig = tseslint.config(
 export default [
   ...baseConfig,
   {
+    // register plugin so rules below resolve in flat config
+    plugins: { '@typescript-eslint': tseslint.plugin },
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
       'no-empty': 'warn',
