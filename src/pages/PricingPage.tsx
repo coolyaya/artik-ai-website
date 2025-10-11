@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Seo from '@/components/Seo';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 
@@ -111,17 +111,16 @@ export default function PricingPage() {
   const activeTab = tabs.find((tab) => tab.id === activeView);
 
   return (
-    <main className="page-animate min-h-screen bg-gray-950 text-white">
-      <Helmet>
-        <title>Pricing - ArtikAi</title>
-        <meta
-          name="description"
-          content="Transparent pricing for ArtikAi build-and-sell projects and retainers, plus guidance on platform pass-through costs."
-        />
-      </Helmet>
+    <>
+      <Seo
+        title="Pricing - ArtikAi"
+        description="Transparent pricing for ArtikAi build-and-sell projects and retainers, plus guidance on platform pass-through costs."
+        image="/thumbnail.jpg"
+      />
       <Navbar variant="dark" />
 
-      <div className="relative isolate overflow-hidden bg-gradient-to-b from-slate-950 via-gray-950 to-black">
+      <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-gray-950 text-white">
+<div className="relative isolate overflow-hidden bg-gradient-to-b from-slate-950 via-gray-950 to-black">
         <div className="pointer-events-none absolute left-1/2 top-[-10rem] -z-10 h-80 w-80 -translate-x-1/2 rounded-full bg-cyan-500/30 blur-3xl" />
         <div className="pointer-events-none absolute right-[-6rem] bottom-[-6rem] -z-10 h-80 w-80 rounded-full bg-blue-600/20 blur-3xl" />
 
@@ -339,5 +338,6 @@ export default function PricingPage() {
         </section>
       </div>
     </main>
+  </>
   );
 }

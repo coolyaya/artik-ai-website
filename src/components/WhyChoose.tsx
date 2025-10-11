@@ -41,7 +41,7 @@ export default function WhyChoose() {
 
   return (
     <Section id="why-choose">
-      <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-white/[0.12] via-white/[0.05] to-white/[0.02] p-6 md:p-10 lg:p-12 shadow-[0_45px_120px_-60px_rgba(8,12,32,0.95)] backdrop-blur-xl">
+      <div className="relative overflow-hidden rounded-brand-xl border border-white/10 bg-gradient-to-br from-white/[0.12] via-white/[0.05] to-white/[0.02] p-6 md:p-10 lg:p-12 shadow-[0_45px_120px_-60px_rgba(8,12,32,0.95)] backdrop-blur-xl">
         <div className="pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(circle_at_top_left,black,transparent_65%)] bg-[radial-gradient(120%_90%_at_0%_0%,rgba(56,189,248,0.25),transparent),radial-gradient(120%_90%_at_80%_0%,rgba(217,70,239,0.18),transparent)]" aria-hidden="true" />
         <div className="relative grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-14">
           <div className="space-y-8">
@@ -51,7 +51,7 @@ export default function WhyChoose() {
             <div className="space-y-6 md:space-y-8">
               {benefits.map(({ icon: Icon, title, body }) => (
                 <div key={title} className="flex items-start gap-4 md:gap-5">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-cyan-300">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-brand-md border border-white/10 bg-white/10 text-cyan-300">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <div className="space-y-1.5">
@@ -63,7 +63,7 @@ export default function WhyChoose() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/15 via-white/10 to-white/[0.04] p-6 md:p-8 shadow-[0_0_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+          <div className="rounded-brand-xl border border-white/10 bg-gradient-to-br from-white/15 via-white/10 to-white/[0.04] p-6 md:p-8 shadow-[0_0_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
               <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-400" aria-hidden="true" />
               AI DASHBOARD ACTIVE
@@ -72,7 +72,7 @@ export default function WhyChoose() {
               {metrics.map((metric) => (
                 <div
                   key={metric.label}
-                  className="rounded-2xl border border-white/10 bg-white/10 p-4 md:p-5 shadow-[0_18px_40px_-24px_rgba(15,23,42,0.7)] backdrop-blur-sm"
+                  className="rounded-brand-lg border border-white/10 bg-white/10 p-4 md:p-5 shadow-[0_18px_40px_-24px_rgba(15,23,42,0.7)] backdrop-blur-sm"
                 >
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-semibold tracking-tight text-white/90">{metric.label}</p>

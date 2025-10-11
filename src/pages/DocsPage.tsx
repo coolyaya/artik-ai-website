@@ -1,15 +1,16 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
 import DarkFooter from '@/components/DarkFooter';
 
 export default function DocsPage(){
   return (
     <main className="page-animate min-h-screen bg-gray-950 text-white">
-      <Helmet>
-        <title>Docs — ArtikAi</title>
-        <meta name="description" content="Get started, integrate, and ship reliable AI automations with ArtikAi." />
-      </Helmet>
+      <Seo
+        title="Docs - ArtikAi"
+        description="Get started, integrate, and ship reliable AI automations with ArtikAi."
+        image="/thumbnail.jpg"
+      />
       <Navbar variant="dark" />
 
       <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-8">

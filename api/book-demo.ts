@@ -27,14 +27,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const data = Schema.parse(typeof req.body === "string" ? JSON.parse(req.body) : req.body);
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      console.error("Missing RESEND_API_KEY");
+      return res.status(500).json({ ok: false, error: "Email service not configured" });
+    }
+
+    const resend = new Resend(resendApiKey);
 
     const toUser = resend.emails.send({
       from: "ArtikAi <onboarding@resend.dev>", // change to noreply@yourdomain.com after domain verification
       to: data.email,
       subject: "We received your demo request",
       react: ConfirmEmail({ name: data.name, timeslot: data.timeslot }),
-      reply_to: "sales@yourdomain.com",
+      replyTo: "sales@yourdomain.com",
     });
 
     const toTeam = resend.emails.send({

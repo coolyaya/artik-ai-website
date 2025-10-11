@@ -34,6 +34,7 @@ const InfiniteLogoCarousel: React.FC<InfiniteLogoCarouselProps> = ({ logos, clas
                   src={logo.icon}
                   alt={logo.name}
                   loading="lazy"
+                  decoding="async"
                   className="h-6 w-6 object-contain"
                 />
                 <span className="text-sm font-medium text-white/80">{logo.name}</span>
@@ -49,6 +50,7 @@ const InfiniteLogoCarousel: React.FC<InfiniteLogoCarouselProps> = ({ logos, clas
                   src={logo.icon}
                   alt={logo.name}
                   loading="lazy"
+                  decoding="async"
                   className="h-6 w-6 object-contain"
                 />
                 <span className="text-sm font-medium text-white/80">{logo.name}</span>

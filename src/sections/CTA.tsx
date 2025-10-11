@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../components/ui/Button";
+import Button from "@/components/ui/Button";
 
 export default function CTA() {
   return (
@@ -12,10 +12,20 @@ export default function CTA() {
           Start free, then scale with your team on Cloud or self-hosted.
         </p>
         <div className="mt-6 flex items-center justify-center gap-3">
-          <Button variant="primary" href="/book" aria-label="Get started for free">
+          <Button
+            variant="primary"
+            href="/book"
+            aria-label="Get started for free"
+            data-analytics-cta="cta-get-started"
+          >
             Get started for free
           </Button>
-          <Button variant="ghost" href="/contact" aria-label="Talk to sales">
+          <Button
+            variant="ghost"
+            href="/contact"
+            aria-label="Talk to sales"
+            data-analytics-cta="cta-talk-to-sales"
+          >
             Talk to sales
           </Button>
         </div>

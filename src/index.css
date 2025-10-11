@@ -1,12 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --scroll-margin-offset: 5.5rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --scroll-margin-offset: 6.5rem;
+  }
+}
+
+@layer base {
+  :where(a) {
+    @apply motion-safe:transition-all motion-safe:duration-200 ease-brand;
+  }
+  :where(a):hover {
+    @apply text-neon-cyan;
+  }
+  :where(a):active {
+    @apply text-neon-purple;
+  }
+  :where(
+      button,
+      [type='button'],
+      [type='submit'],
+      [type='reset'],
+      a[role='button'],
+      [role='button']
+    ) {
+    @apply motion-safe:transition-all motion-safe:duration-200 ease-brand;
+  }
+  :where(
+      button,
+      [type='button'],
+      [type='submit'],
+      [type='reset'],
+      a[role='button'],
+      [role='button']
+    ):hover {
+    @apply motion-safe:-translate-y-0.5 motion-safe:brightness-110;
+  }
+  :where(
+      button,
+      [type='button'],
+      [type='submit'],
+      [type='reset'],
+      a[role='button'],
+      [role='button']
+    ):active {
+    @apply motion-safe:translate-y-0 motion-safe:scale-[0.99] motion-safe:brightness-95;
+  }
+  :where(h1, h2, h3, h4, h5, h6) {
+    scroll-margin-top: var(--scroll-margin-offset);
+  }
+}
 
 body {
   font-family: 'JetBrains Mono','Fira Code','Inter',monospace,-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto',sans-serif;
@@ -97,7 +148,34 @@ html { scroll-behavior: smooth; }
 ::selection { background: rgba(0,212,255,0.3); color: #fff; }
 
 /* Focus styles */
-button:focus, a:focus { outline: 1px solid #00D4FF; outline-offset: 2px; }
+:where(a, button, input, textarea, select, summary, [role="button"]):focus-visible {
+  outline: 3px solid #22d3ee !important;
+  outline-offset: 3px;
+}
+:where(a, button, input, textarea, select, summary, [role="button"]):focus:not(:focus-visible) {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: #0f172a;
+  color: #fff;
+  border-radius: 9999px;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  z-index: 9999;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
 
 /* Monospace ligatures */
 .font-mono { font-feature-settings: 'liga' 1, 'calt' 1; font-variant-ligatures: contextual; }

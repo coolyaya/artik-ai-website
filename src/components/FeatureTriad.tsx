@@ -256,12 +256,12 @@ export default function FeatureTriad() {
             aria-modal="true"
             aria-labelledby={modalTitleId}
             aria-describedby={modalDescId}
-            className="relative z-10 w-full max-w-3xl rounded-2xl border border-white/15 bg-[#0B1120] p-6 shadow-[0_20px_60px_rgba(12,22,45,0.65)]"
+            className="relative z-10 w-full max-w-3xl rounded-brand-lg border border-white/15 bg-[#0B1120] p-6 shadow-[0_20px_60px_rgba(12,22,45,0.65)]"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-cyan-300">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-brand-md border border-white/10 bg-white/5 text-cyan-300">
                   {activeItem.icon}
                 </div>
                 <div>
@@ -275,7 +275,7 @@ export default function FeatureTriad() {
                 ref={closeButtonRef}
                 type="button"
                 onClick={() => setActiveIndex(null)}
-                className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-white/30 hover:text-white"
+                className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 hover:border-white/30 hover:text-white"
                 aria-label="Close dialog"
               >
                 <X size={16} />
@@ -295,12 +295,13 @@ export default function FeatureTriad() {
 
             <div className={`mt-6 ${modalGridLayout}`}>
               {mediaPoster && (
-                <figure className="overflow-hidden rounded-xl border border-white/10 bg-black/30">
+                <figure className="overflow-hidden rounded-brand-md border border-white/10 bg-black/30">
                   <img
                     src={mediaPoster}
                     alt={mediaCaption ?? activeItem.title}
                     className="aspect-video w-full object-cover"
                     loading="lazy"
+                    decoding="async"
                   />
                   {mediaCaption && (
                     <figcaption className="px-4 py-3 text-xs text-white/60">
@@ -310,7 +311,7 @@ export default function FeatureTriad() {
                 </figure>
               )}
 
-              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+              <div className="rounded-brand-md border border-white/10 bg-white/5 p-4">
                 <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-cyan-300">
                   <span>Impact trend</span>
                   <span>{activeItem.metricLabel}</span>

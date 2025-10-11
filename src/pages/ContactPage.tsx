@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
 import { loadVoiceflow, openVoiceflow } from '@/lib/voiceflow';
 import { submitForm } from '../utils/submitForm';
@@ -74,11 +74,12 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="page-animate min-h-screen bg-gray-950 text-white">
-      <Helmet>
-        <title>Contact - ArtikAi</title>
-        <meta name="description" content="Get in touch with ArtikAi to start automating." />
-      </Helmet>
+    <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-gray-950 text-white">
+      <Seo
+        title="Contact - ArtikAi"
+        description="Get in touch with ArtikAi to start automating."
+        image="/thumbnail.jpg"
+      />
 
       <Navbar variant="dark" />
 
@@ -177,6 +178,7 @@ export default function ContactPage() {
                 <a
                   href="/book"
                   className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-500/40 px-5 py-2 text-sm font-semibold text-cyan-100 transition focus:outline-none focus:ring-2 focus:ring-cyan-400/40 focus:ring-offset-2 focus:ring-offset-gray-950 hover:border-cyan-400 hover:text-white"
+                  data-analytics-cta="contact-book-demo"
                 >
                   Book a demo slot
                 </a>
@@ -187,6 +189,7 @@ export default function ContactPage() {
                   className={"inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition focus:outline-none disabled:opacity-70 " + (botReady
                     ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-gray-950 shadow-lg shadow-cyan-500/20 hover:brightness-110 focus:ring-2 focus:ring-cyan-400/50 focus:ring-offset-2 focus:ring-offset-gray-950'
                     : 'bg-white/10 text-gray-400 cursor-not-allowed')}
+                  data-analytics-cta="contact-ai-assistant"
                 >
                   Chat with the AI assistant
                 </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Seo from '@/components/Seo';
 import { MessageSquare, Phone, Plug, Globe, LayoutGrid, Megaphone, ArrowRight } from 'lucide-react';
 
 const services = [
@@ -44,11 +44,12 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main className="page-animate min-h-screen bg-gray-950 text-white">
-      <Helmet>
-        <title>Services - ArtikAi</title>
-        <meta name="description" content="Explore ArtikAi services: chatbots, voice callers, CRM, websites, apps, and ads." />
-      </Helmet>
+    <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-gray-950 text-white">
+      <Seo
+        title="Services - ArtikAi"
+        description="Explore ArtikAi services: chatbots, voice callers, CRM, websites, apps, and ads."
+        image="/thumbnail.jpg"
+      />
 
       {/* Nav (compact) */}
       <nav className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-gray-950/60 bg-gray-950/80 border-b border-cyan-500/10" aria-label="Primary">

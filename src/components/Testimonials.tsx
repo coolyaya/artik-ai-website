@@ -42,6 +42,7 @@ const Testimonials: FC<TestimonialsProps> = ({ hero, items }) => {
                 src={hero.avatarSrc}
                 alt=""
                 loading="lazy"
+                decoding="async"
                 className="h-12 w-12 rounded-full border border-white/15 object-cover shadow-lg"
               />
             ) : (

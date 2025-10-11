@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from 'react-helmet-async';
+import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
 import { useNavigate, useLocation } from "react-router-dom";
 import { LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone } from "lucide-react";
@@ -113,24 +113,16 @@ export default function BookPage() {
   }, [showThanks]);
 
   return (
-    <main className="page-animate min-h-screen bg-[#050B1A] text-white">
-      <Helmet>
-        <title>Book a Call â€“ ArtikAi</title>
-        <meta
-          name="description"
-          content="Schedule a free strategy call to see how AI can automate your support, sales, and marketing."
-        />
-        {/* Compute canonical at runtime to avoid hardcoding domain */}
-        {typeof window !== 'undefined' && (
-          <link rel="canonical" href={`${window.location.origin}/book`} />
-        )}
-        {typeof window !== 'undefined' && (
-          <meta property="og:url" content={`${window.location.origin}/book`} />
-        )}
-      </Helmet>
+    <>
+      <Seo
+        title="Book a Call - ArtikAi"
+        description="Schedule a free strategy call to see how AI can automate your support, sales, and marketing."
+        image="/thumbnail.jpg"
+      />
 
       <Navbar variant="dark" />
 
+      <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-[#050B1A] text-white">
       <section className="max-w-5xl mx-auto px-6 py-10">
           <a href="/" className="text-sm text-cyan-300 hover:underline">&lt; Back to site</a>
         <h1 className="rise mt-3 text-3xl md:text-4xl font-semibold" style={{ animationDelay: '40ms' }}>Book a free demo</h1>
@@ -275,7 +267,8 @@ export default function BookPage() {
           </div>
         </div>
       )}
-    </main>
+      </main>
+    </>
   );
 }
 

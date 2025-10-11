@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import Seo from '@/components/Seo';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import DarkFooter from '@/components/DarkFooter';
@@ -114,14 +114,12 @@ const SHOWCASE_SECTIONS: ShowcaseCategory[] = [
 
 export default function TemplatesPage() {
   return (
-    <main className="page-animate min-h-screen bg-gray-950 text-white">
-      <Helmet>
-        <title>Templates - ArtikAi</title>
-        <meta
-          name="description"
-          content="Browse ready-to-run AI automations for support, revenue, and operations. Launch with best practices baked in."
-        />
-      </Helmet>
+    <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-gray-950 text-white">
+      <Seo
+        title="Templates - ArtikAi"
+        description="Browse ready-to-run AI automations for support, revenue, and operations. Launch with best practices baked in."
+        image="/thumbnail.jpg"
+      />
 
       <Navbar variant="dark" />
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
+import SkipLink from "./SkipLink";
 
 type NavbarProps = {
   variant?: "dark" | "light";
@@ -75,17 +76,19 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
   };
 
   return (
-    <header className={`${headerBase} ${backgroundClass}`} aria-label="Primary">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-6 flex items-center justify-between">
+    <header className={`${headerBase} ${backgroundClass}`} aria-label="Primary" data-critical-nav="true">
+      <SkipLink />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-6 flex items-center justify-between nav-inner">
         <div className="flex flex-1 items-center">
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3 brand">
             <img
               src="/brand/artikai-icon.svg"
               alt="ArtikAi"
               width={28}
               height={28}
               className="rounded-lg"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
             />
             <span
               className={`text-base md:text-lg font-semibold tracking-tight ${
@@ -97,7 +100,7 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+        <nav className="hidden md:flex items-center gap-6 links" aria-label="Main navigation">
           <NavLink to="/product" className={desktopLinkClass}>
             Product
           </NavLink>

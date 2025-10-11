@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Helmet } from 'react-helmet-async';
+import Seo from '@/components/Seo';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone,
@@ -213,7 +213,7 @@ export default function ServiceDetails() {
   const svc = id && S[id as ServiceId];
   if (!svc) {
     return (
-      <main className="min-h-screen bg-black text-white flex items-center justify-center p-8">
+      <main id="main-content" tabIndex={-1} className="min-h-screen bg-black text-white flex items-center justify-center p-8">
         <div className="text-center">
           <p className="text-xl">Service not found.</p>
         </div>
@@ -222,31 +222,24 @@ export default function ServiceDetails() {
   }
 
   return (
-    <main className={`min-h-screen bg-black text-white transition-all duration-500 ${ready ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-      <Helmet>
-        <title>{`${svc.name} — ArtikAi`}</title>
-        <meta name="description" content={svc.summary} />
-        {typeof window !== 'undefined' && (
-          <link rel="canonical" href={window.location.href} />
-        )}
-        {typeof window !== 'undefined' && (
-          <meta property="og:url" content={window.location.href} />
-        )}
-        <meta property="og:title" content={`${svc.name} — ArtikAi`} />
-        <meta property="og:description" content={svc.summary} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content={svc.heroImg} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${svc.name} — ArtikAi`} />
-        <meta name="twitter:description" content={svc.summary} />
-        <meta name="twitter:image" content={svc.heroImg} />
-      </Helmet>
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className={`min-h-screen bg-black text-white transition-all duration-500 ${ready ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+    >
+      <Seo
+        title={`${svc.name} - ArtikAi`}
+        description={svc.summary}
+        image={svc.heroImg}
+        openGraph={{ imageAlt: `${svc.name} showcase`, type: 'website' }}
+      />
       {/* Hero */}
       <section className="relative">
         <img
           src={svc.heroImg}
           alt={`${svc.name} hero`}
           className="w-full h-72 object-cover opacity-70"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
         <div className="absolute bottom-6 left-6 right-6 max-w-6xl mx-auto">
@@ -327,6 +320,7 @@ export default function ServiceDetails() {
             <button
               onClick={() => nav(`/book?service=${svc.id}`)}
               className="mt-4 inline-flex items-center gap-2 rounded-xl bg-cyan-500/90 hover:bg-cyan-400 text-black px-4 py-2 text-sm font-medium"
+              data-analytics-cta={`service-${svc.id}-book-demo`}
             >
               Book a demo <ArrowRight className="w-4 h-4" />
             </button>
@@ -338,6 +332,7 @@ export default function ServiceDetails() {
               alt={`${svc.name} preview`}
               className="w-full h-36 object-cover opacity-80"
               loading="lazy"
+              decoding="async"
             />
             <div className="p-4 text-sm text-gray-300">
               Real implementation screenshots available during the call.

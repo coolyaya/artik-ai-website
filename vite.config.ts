@@ -6,6 +6,13 @@ export default defineConfig({
   base: "/",
   plugins: [react()],
   resolve: {
-    alias: { "@": path.resolve(__dirname, "src") },
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+      "@/components": path.resolve(__dirname, "src/components"),
+      "@/lib": path.resolve(__dirname, "src/lib"),
+    },
+  },
+  build: {
+    sourcemap: true,
   },
 });
