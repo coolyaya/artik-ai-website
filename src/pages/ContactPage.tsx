@@ -1,13 +1,26 @@
 import React from 'react';
 import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
-import { loadVoiceflow, openVoiceflow } from '@/lib/voiceflow';
-import { submitForm } from '../utils/submitForm';
+import { getVoiceflowClient, loadVoiceflow, openVoiceflow } from '@/lib/voiceflow';
+import { submitForm, type SubmitPayload } from '../utils/submitForm';
+
+type ContactFormState = {
+  name: string;
+  email: string;
+  message: string;
+};
 
 export default function ContactPage() {
-  const [form, setForm] = React.useState({ name: '', email: '', message: '' });
+  const [form, setForm] = React.useState<ContactFormState>({ name: '', email: '', message: '' });
   const [status, setStatus] = React.useState<'idle' | 'loading' | 'ok' | 'err'>('idle');
   const [botReady, setBotReady] = React.useState(false);
+
+  const handleFieldChange = (
+    field: keyof ContactFormState,
+  ) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value } = event.target;
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -15,10 +28,10 @@ export default function ContactPage() {
 
     setStatus('loading');
     try {
-      const result = await submitForm({ ...form, source: 'contact' });
-      const ok = Boolean(result);
-      setStatus(ok ? 'ok' : 'err');
-      if (ok) {
+      const payload: SubmitPayload = { ...form, source: 'contact' };
+      const result = await submitForm(payload);
+      setStatus(result.ok ? 'ok' : 'err');
+      if (result.ok) {
         setForm({ name: '', email: '', message: '' });
       }
     } catch (error) {
@@ -38,7 +51,7 @@ export default function ContactPage() {
 
     const checkReady = () => {
       if (cancelled) return true;
-      const api = (window as any).voiceflow?.chat ?? (window as any).voiceflow;
+      const api = getVoiceflowClient();
       if (api?.open) {
         setBotReady((prev) => (prev ? prev : true));
         return true;
@@ -108,7 +121,7 @@ export default function ContactPage() {
                   id="name"
                   name="name"
                   value={form.name}
-                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                  onChange={handleFieldChange('name')}
                   required
                   autoComplete="name"
                   placeholder="Your name"
@@ -125,7 +138,7 @@ export default function ContactPage() {
                   name="email"
                   type="email"
                   value={form.email}
-                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                  onChange={handleFieldChange('email')}
                   required
                   autoComplete="email"
                   placeholder="you@example.com"
@@ -142,7 +155,7 @@ export default function ContactPage() {
                   name="message"
                   rows={5}
                   value={form.message}
-                  onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                  onChange={handleFieldChange('message')}
                   required
                   placeholder="What would you like to automate?"
                   className="mt-2 w-full rounded-xl border border-white/10 bg-gray-900/70 px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500"

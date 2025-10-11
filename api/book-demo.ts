@@ -52,8 +52,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     await Promise.all([toUser, toTeam]);
     return res.status(200).json({ ok: true });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Invalid input or email failed";
     console.error(err);
-    return res.status(400).json({ ok: false, error: err?.message ?? "Invalid input or email failed" });
+    return res.status(400).json({ ok: false, error: msg });
   }
 }

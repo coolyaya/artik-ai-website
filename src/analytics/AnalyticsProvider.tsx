@@ -1,116 +1,23 @@
 import React, {
   PropsWithChildren,
-  createContext,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
-
-type AnalyticsContextValue = {
-  consent: boolean;
-  updateConsent: (value: boolean) => void;
-  trackEvent: (eventName: string, data?: Record<string, unknown>) => void;
-};
-
-const AnalyticsContext = createContext<AnalyticsContextValue | null>(null);
-
-const CONSENT_STORAGE_KEY = "artikai.analytics.consent";
-const CONSENT_COOKIE_NAME = "analytics_consent";
-const CTA_ATTRIBUTE = "data-analytics-cta";
-
-type ConsentState = {
-  value: boolean;
-  source: "storage" | "cookie" | null;
-};
-
-const ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
-
-function readConsentCookie(): string | null {
-  if (typeof document === "undefined") {
-    return null;
-  }
-  const match = document.cookie.match(
-    new RegExp(`(?:^|; )${CONSENT_COOKIE_NAME}=([^;]*)`),
-  );
-  return match ? decodeURIComponent(match[1]) : null;
-}
-
-function loadInitialConsent(): ConsentState {
-  if (typeof window === "undefined") {
-    return { value: false, source: null };
-  }
-
-  try {
-    const stored = window.localStorage.getItem(CONSENT_STORAGE_KEY);
-    if (stored === "granted" || stored === "denied") {
-      return { value: stored === "granted", source: "storage" };
-    }
-  } catch {
-    // Ignore storage access errors (e.g. Safari private mode).
-  }
-
-  const cookie = readConsentCookie();
-  if (cookie === "granted" || cookie === "denied") {
-    return { value: cookie === "granted", source: "cookie" };
-  }
-
-  return { value: false, source: null };
-}
-
-function persistConsent(value: boolean) {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  try {
-    window.localStorage.setItem(
-      CONSENT_STORAGE_KEY,
-      value ? "granted" : "denied",
-    );
-  } catch {
-    // Ignore storage write failures; cookie still reflects latest state.
-  }
-
-  const base = `${CONSENT_COOKIE_NAME}=${value ? "granted" : "denied"}; path=/; SameSite=Lax`;
-  const retention = value ? `; max-age=${ONE_YEAR_SECONDS}` : "; max-age=0";
-  document.cookie = `${base}${retention}`;
-}
-
-function isOutboundLink(link: HTMLAnchorElement): boolean {
-  if (!link.href) {
-    return false;
-  }
-
-  const href = link.href;
-  if (href.startsWith("mailto:") || href.startsWith("tel:")) {
-    return true;
-  }
-
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  try {
-    const currentOrigin = window.location.origin;
-    const linkUrl = new URL(href, currentOrigin);
-    return linkUrl.origin !== currentOrigin;
-  } catch {
-    return false;
-  }
-}
-
-function formatDuration(ms: number) {
-  const seconds = Math.round(ms / 1000);
-  const minutes = Math.floor(seconds / 60);
-  if (minutes === 0) {
-    return `${seconds}s`;
-  }
-  const remainingSeconds = seconds % 60;
-  return `${minutes}m ${remainingSeconds}s`;
-}
+import {
+  CTA_ATTRIBUTE,
+  CONSENT_STORAGE_KEY,
+  formatDuration,
+  isOutboundLink,
+  loadInitialConsent,
+  persistConsent,
+} from "./analytics-helpers";
+import {
+  AnalyticsContext,
+  type AnalyticsContextValue,
+} from "./analytics-context";
 
 export function AnalyticsProvider({ children }: PropsWithChildren) {
   const initialConsent = useMemo(loadInitialConsent, []);
@@ -354,12 +261,4 @@ function AnalyticsConsentPanel({
       )}
     </div>
   );
-}
-
-export function useAnalytics(): AnalyticsContextValue {
-  const context = useContext(AnalyticsContext);
-  if (!context) {
-    throw new Error("useAnalytics must be used within AnalyticsProvider");
-  }
-  return context;
 }

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
 import { useNavigate, useLocation } from "react-router-dom";
 import { LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone } from "lucide-react";
-import { submitForm } from "../utils/submitForm";
+import { submitForm, type SubmitPayload, type SubmitResult } from "../utils/submitForm";
 
 type Service = {
   id: string;
@@ -21,28 +21,32 @@ const services: Service[] = [
   { id: "ads", name: "Ads & Creatives", icon: <Megaphone className="w-5 h-5" />, blurb: "IG/FB hooks, scripts, and creatives that perform." },
 ];
 
+type BookFormState = {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  message: string;
+  business: string;
+  source: string;
+};
+
+const initialFormState: BookFormState = {
+  name: "",
+  email: "",
+  phone: "",
+  service: "",
+  message: "",
+  business: "",
+  source: "book",
+};
+
 export default function BookPage() {
   const [selected, setSelected] = useState<Service | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [showThanks, setShowThanks] = useState(false);
-  const [form, setForm] = useState<{ 
-    name: string;
-    email: string;
-    phone: string;
-    service: string;
-    message: string;
-    business: string;
-    source: string;
-  }>({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: "",
-    business: "",
-    source: "book",
-  });
-  const navigate = useNavigate?.() as any; // tolerate absence if not using router
+  const [form, setForm] = useState<BookFormState>(initialFormState);
+  const navigate = useNavigate();
   const location = useLocation();
 
   // Preselect service from ?service=crm, etc.
@@ -63,21 +67,33 @@ export default function BookPage() {
     if (submitting) return;
     setSubmitting(true);
     try {
-      // Safety net: read from the actual form so we never miss the field
-      const fd = new FormData(e.currentTarget);
-      const biz = (fd.get("business") || fd.get("company") || fd.get("businessName") || "").toString().trim();
-      if (!form.business && biz) (form as any).business = biz;
+      const domData = new FormData(e.currentTarget);
+      const businessFromDom = (
+        domData.get("business") ??
+        domData.get("company") ??
+        domData.get("businessName") ??
+        ""
+      )
+        .toString()
+        .trim();
+      const businessValue = form.business || businessFromDom;
+      const serviceName = selected?.name ?? form.service || "Unspecified";
 
-      // Sync selected service into payload from UI selection
-      const serviceName = selected?.name ?? "Unspecified";
-      (form as any).service = serviceName;
+      const payload: SubmitPayload = {
+        ...form,
+        service: serviceName,
+        business: businessValue,
+        company: businessValue,
+        businessName: businessValue,
+      };
 
-      console.log("[Book submit] final form â†’", form);
-      const r = await submitForm(form as any);
-      console.log("[Book submit] done:", r);
-      setShowThanks(true);   // open the message bubble/modal
-      // Reset form after success
-      setForm({ name: "", email: "", phone: "", service: "", message: "", business: "", source: "book" });
+      console.log("[Book submit] final form ->", payload);
+      const result: SubmitResult = await submitForm(payload);
+      console.log("[Book submit] done:", result);
+      if (result.ok) {
+        setShowThanks(true);
+        setForm(() => ({ ...initialFormState }));
+      }
     } catch (err) {
       console.error("[Book submit] error:", err);
     } finally {
@@ -86,13 +102,13 @@ export default function BookPage() {
   };
 
   // navigation helper
-  const redirectHome = () => {
+  const redirectHome = useCallback(() => {
     if (navigate) {
       navigate("/");
-    } else {
-      window.location.href = "/";
+      return;
     }
-  };
+    window.location.href = "/";
+  }, [navigate]);
 
   // helper for OK button in the bubble
   const handleThanksOk = () => {
@@ -104,13 +120,12 @@ export default function BookPage() {
   // Optional: auto-close + redirect after ~2.5s
   useEffect(() => {
     if (!showThanks) return;
-    const t = setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       setShowThanks(false);
-      // auto-close redirects without extra delay
       redirectHome();
     }, 2500);
-    return () => clearTimeout(t);
-  }, [showThanks]);
+    return () => window.clearTimeout(timeoutId);
+  }, [showThanks, redirectHome]);
 
   return (
     <>
@@ -271,4 +286,3 @@ export default function BookPage() {
     </>
   );
 }
-

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '@/components/Seo';
 import { MessageSquare, Phone, Plug, Globe, LayoutGrid, Megaphone, ArrowRight } from 'lucide-react';

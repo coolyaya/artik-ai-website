@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAnalytics } from '@/analytics/AnalyticsProvider';
+import { useAnalytics } from '@/analytics/useAnalytics';
 
 const scriptId = 'plausible-analytics';
 const analyticsEnvFlag = String(import.meta.env.VITE_ENABLE_ANALYTICS ?? '').toLowerCase() === 'true';

@@ -20,7 +20,8 @@ import FaqSection from "@/components/FaqSection";
 import BackToTopButton from "@/components/BackToTopButton";
 import DarkFooter from "@/components/DarkFooter";
 import DemoForm from "@/components/DemoForm";
-import Seo, { getSiteUrl } from "@/components/Seo";
+import Seo from "@/components/Seo";
+import { getSiteUrl } from "@/components/Seo.helpers";
 import criticalHomeCss from "@/styles/critical-home.css?raw";
 
 export default function App() {

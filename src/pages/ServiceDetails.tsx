@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Seo from '@/components/Seo';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone,
   ArrowRight, Check, BarChart3, LineChart as LineIcon

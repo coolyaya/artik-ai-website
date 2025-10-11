@@ -1,27 +1,17 @@
 import { ReactNode, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
+import {
+  DEFAULT_META,
+  DEFAULT_OPEN_GRAPH,
+  DEFAULT_TWITTER,
+  getSiteUrl,
+  isAbsoluteUrl,
+  toAbsolute,
+} from "./Seo.helpers";
+import type { JsonLd, OpenGraphOptions, TwitterOptions } from "./Seo.helpers";
 
-type JsonLd = Record<string, unknown> | Record<string, unknown>[];
-
-type OpenGraphOptions = {
-  title?: string;
-  description?: string;
-  image?: string;
-  imageAlt?: string;
-  type?: string;
-  siteName?: string;
-};
-
-type TwitterOptions = {
-  card?: "summary" | "summary_large_image" | "app" | "player";
-  site?: string;
-  creator?: string;
-  image?: string;
-  imageAlt?: string;
-  title?: string;
-  description?: string;
-};
+export type { JsonLd, OpenGraphOptions, TwitterOptions } from "./Seo.helpers";
 
 export type SeoProps = {
   title?: string;
@@ -34,41 +24,6 @@ export type SeoProps = {
   jsonLd?: JsonLd;
   children?: ReactNode;
 };
-
-const DEFAULT_META = {
-  title: "ArtikAi | Workflow automation for support, sales, and marketing",
-  description:
-    "ArtikAi builds AI copilots that automate customer support, sales follow-up, and marketing workflows while staying in sync with your stack.",
-  image: "/thumbnail.jpg",
-};
-
-const DEFAULT_OPEN_GRAPH: Required<Pick<OpenGraphOptions, "type" | "siteName">> = {
-  type: "website",
-  siteName: "ArtikAi",
-};
-
-const DEFAULT_TWITTER: Required<Pick<TwitterOptions, "card">> & Partial<TwitterOptions> = {
-  card: "summary_large_image",
-  site: "@ArtikAi",
-};
-
-const ABSOLUTE_URL_REGEX = /^https?:\/\//i;
-
-export function getSiteUrl(): string {
-  const env = import.meta.env as Record<string, string | undefined>;
-  const raw =
-    env.VITE_SITE_URL ||
-    env.SITE_URL ||
-    (typeof window !== "undefined" ? window.location.origin : "");
-  return raw ? raw.replace(/\/+$/, "") : "";
-}
-
-function toAbsolute(url: string | undefined, siteUrl: string): string | undefined {
-  if (!url) return undefined;
-  if (ABSOLUTE_URL_REGEX.test(url)) return url;
-  if (!siteUrl) return url;
-  return `${siteUrl}${url.startsWith("/") ? "" : "/"}${url}`;
-}
 
 export function Seo({
   title,
@@ -87,7 +42,7 @@ export function Seo({
   const pagePath = `${location.pathname}${location.search}${location.hash}`;
   const canonicalUrl =
     canonical ??
-    (ABSOLUTE_URL_REGEX.test(pagePath)
+    (isAbsoluteUrl(pagePath)
       ? pagePath
       : siteUrl
       ? `${siteUrl}${pagePath.startsWith("/") ? "" : "/"}${pagePath}`

@@ -1,15 +1,22 @@
 import React from "react";
-import { submitForm } from "../utils/submitForm";
+import { submitForm, type SubmitPayload } from "../utils/submitForm";
 
 type Props = {
   defaultService?: string;
   onDone?: () => void;
 };
 
+type BookingFormState = {
+  name: string;
+  email: string;
+  service: string;
+  message: string;
+};
+
 export default function BookingForm({ defaultService, onDone }: Props) {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState<null | "ok" | "err">(null);
-  const [form, setForm] = React.useState({
+  const [form, setForm] = React.useState<BookingFormState>({
     name: "",
     email: "",
     service: defaultService || "AI Customer Support & Chatbots",
@@ -22,15 +29,22 @@ export default function BookingForm({ defaultService, onDone }: Props) {
     }
   }, [defaultService]);
 
-  async function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setSuccess(null);
 
-    const ok = await submitForm(form);
-    setSuccess(ok ? "ok" : "err");
-    if (ok && onDone) onDone();
-    setLoading(false);
+    try {
+      const payload: SubmitPayload = { ...form, source: "booking-form" };
+      const result = await submitForm(payload);
+      setSuccess(result.ok ? "ok" : "err");
+      if (result.ok && onDone) onDone();
+    } catch (error) {
+      console.error("[BookingForm] submission failed", error);
+      setSuccess("err");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -105,4 +119,3 @@ export default function BookingForm({ defaultService, onDone }: Props) {
     </form>
   );
 }
-
