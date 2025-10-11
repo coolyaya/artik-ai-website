@@ -77,7 +77,7 @@ export default function BookPage() {
         .toString()
         .trim();
       const businessValue = form.business || businessFromDom;
-      const serviceName = selected?.name ?? form.service || "Unspecified";
+      const serviceName = selected?.name ?? (form.service || "Unspecified");
 
       const payload: SubmitPayload = {
         ...form,
