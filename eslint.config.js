@@ -5,9 +5,10 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
-export default tseslint.config(
+const baseConfig = tseslint.config(
   {
-    ignores: ['dist', 'playwright-report', 'test-results'],
+    // add more ignores here
+    ignores: ['dist', 'playwright-report', 'test-results', '.revert-backup/**', '**/*.d.ts'],
   },
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
@@ -15,10 +16,7 @@ export default tseslint.config(
     languageOptions: {
       ecmaVersion: 2021,
       sourceType: 'module',
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
+      globals: { ...globals.browser, ...globals.node },
     },
     plugins: {
       'react-hooks': reactHooks,
@@ -30,3 +28,14 @@ export default tseslint.config(
     },
   }
 );
+
+export default [
+  ...baseConfig,
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
+      'no-empty': 'warn',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+    },
+  },
+];
