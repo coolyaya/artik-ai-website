@@ -31,7 +31,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "analyze": "vite-bundle-visualizer --output dist/stats.html --open false",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test -c playwright.config.ts"
   },
   "dependencies": {
     "framer-motion": "^12.23.13",

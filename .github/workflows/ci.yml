@@ -11,6 +11,9 @@ jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: code/artikai-website-v3
 
     steps:
       - name: Checkout repository
@@ -26,6 +29,10 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
+          cache-dependency-path: code/artikai-website-v3/pnpm-lock.yaml
+
+      - name: Environment info
+        run: echo "PWD=$PWD" && ls -la && node -v && pnpm -v
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -37,4 +44,4 @@ jobs:
         run: pnpm exec playwright install --with-deps
 
       - name: Run Playwright tests
-        run: pnpm test:e2e
+        run: pnpm run test:e2e
