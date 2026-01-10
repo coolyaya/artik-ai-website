@@ -1,4 +1,27 @@
 {
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.eol": "\n",
   "css.lint.unknownAtRules": "ignore",
-  "tailwindCSS.includeLanguages": { "postcss": "css" }
+  "tailwindCSS.includeLanguages": { "postcss": "css" },
+
+  "terminal.integrated.env.windows": {
+    "LC_ALL": "C.UTF-8",
+    "LANG": "C.UTF-8"
+  }
 }

@@ -348,7 +348,7 @@ export default function UseCaseDetailPage() {
     .map((key) => ({ slug: key, name: useCaseContent[key].name }));
 
   return (
-    <main className="page-animate min-h-screen bg-[#050B1A] text-white">
+    <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-[#050B1A] text-white">
       <Helmet>
         <title>{`${config.name} - Use Cases | ArtikAi`}</title>
         <meta name="description" content={config.seoDescription} />

@@ -11,7 +11,9 @@ export default function CustomersCTA(){
         <h2 className="h2">Automation for your customers</h2>
         <p className="lead">Onboard, support, and upsell with reliable AI experiences.</p>
         <div style={{marginTop:16}}>
-          <a className="btn btn--primary btn--lg" href="#book">Book a free demo</a>
+          <a className="btn btn--primary btn--lg" href="#book" data-analytics-cta="customers-book-demo">
+            Book a free demo
+          </a>
         </div>
       </div>
     </Section>

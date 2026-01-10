@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
@@ -23,6 +24,30 @@ export default {
         'neon-purple': '#8B5CF6',
         'neon-green': '#00FF88',
         'neon-red': '#FF4444',
+      },
+      borderRadius: {
+        xl: '1rem',
+        '2xl': '1.5rem',
+        '3xl': '2rem',
+        'brand-sm': '0.875rem',
+        'brand-md': '1.125rem',
+        'brand-lg': '1.5rem',
+        'brand-xl': '2rem',
+        'brand-pill': '999px',
+      },
+      spacing: {
+        gutter: '1.5rem',
+        'section-xs': '3.5rem',
+        'section-sm': '4.5rem',
+        section: '6rem',
+        'section-lg': '8rem',
+      },
+      transitionTimingFunction: {
+        brand: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+      transitionDuration: {
+        200: '200ms',
+        250: '250ms',
       },
       boxShadow: {
         neon: '0 0 20px rgba(0, 212, 255, 0.5)',

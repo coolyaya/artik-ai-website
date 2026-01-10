@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
 import DarkFooter from '@/components/DarkFooter';
 import { CheckCircle2, ArrowRight, Bot, PhoneCall, CalendarClock, Globe2, AppWindow, Megaphone } from 'lucide-react';
@@ -76,19 +76,24 @@ export default function ProductPage() {
   ];
 
   return (
-    <main className="page-animate min-h-screen bg-gray-950 text-white">
-      <Helmet>
-        <title>Product - ArtikAi</title>
-        <meta name="description" content="Chat, voice, and workflow automation built for growth teams." />
-      </Helmet>
+    <>
+      <Seo
+        title="Product - ArtikAi"
+        description="Chat, voice, and workflow automation built for growth teams."
+      />
 
       <Navbar variant="dark" />
 
-      <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+      <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-gray-950 text-white">
+        <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-10">
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">One platform. Three superpowers.</h1>
         <p className="mt-3 text-white/70 max-w-2xl">Ship AI chat, voice, and end-to-end workflows without cobbling tools together. Designed for reliability, observability, and speed.</p>
         <div className="mt-6">
-          <Link to="/book" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 text-black font-semibold shadow-[0_15px_60px_rgba(34,211,238,0.35)] hover:opacity-90">
+          <Link
+            to="/book"
+            className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 text-black font-semibold shadow-[0_15px_60px_rgba(34,211,238,0.35)] hover:opacity-90"
+            data-analytics-cta="product-book-demo"
+          >
             Book a demo <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
@@ -120,6 +125,7 @@ export default function ProductPage() {
       </section>
 
       <DarkFooter />
-    </main>
+      </main>
+    </>
   );
 }

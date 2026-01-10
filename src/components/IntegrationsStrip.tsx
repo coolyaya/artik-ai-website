@@ -23,6 +23,8 @@ function Chip({ src, alt, label }: Logo) {
           src={src}
           alt={alt}
           className="chip__logo"
+          loading="lazy"
+          decoding="async"
           onError={() => setErrored(true)}
         />
       ) : (

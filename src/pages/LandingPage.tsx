@@ -1,12 +1,12 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Seo from '@/components/Seo';
 import { ArrowRight, Twitter, Linkedin, Github } from 'lucide-react';
-import DemoVideo from '../components/DemoVideo';
-import HeroSpline from '../components/HeroSpline';
-import FeatureRail from '../components/FeatureRail';
-import InfiniteLogoCarousel from '../components/InfiniteLogoCarousel';
-import WhyChoose from '../components/WhyChoose';
+import DemoVideo from '@/components/DemoVideo';
+import HeroSpline from '@/components/HeroSpline';
+import FeatureRail from '@/components/FeatureRail';
+import InfiniteLogoCarousel from '@/components/InfiniteLogoCarousel';
+import WhyChoose from '@/components/WhyChoose';
 
 const integrationLogos = [
   { name: 'OpenAI', icon: '/integrations/openai-color.svg' },
@@ -25,9 +25,6 @@ const integrationLogos = [
   { name: 'Airbnb', icon: '/integrations/airbnb-2-logo-svgrepo-com.svg' },
 ];
 function LandingPage() {
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
-  const canonicalUrl = origin ? `${origin}/` : undefined;
-
   const featureItems = [
     {
       title: 'Run AI workflows',
@@ -49,19 +46,11 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
-      <Helmet>
-        <title>ArtikAi - AI Automation Without Limits</title>
-        <meta name="description" content="Chat, voice, and workflows that scale revenue while you sleep." />
-        {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-        <meta property="og:title" content="ArtikAi - AI Automation Without Limits" />
-        <meta property="og:description" content="AI chat, voice, and workflow automation for modern businesses." />
-        <meta property="og:image" content="/thumbnail.jpg" />
-        {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ArtikAi - AI Automation Without Limits" />
-        <meta name="twitter:description" content="AI chat, voice, and workflow automation for modern businesses." />
-        <meta name="twitter:image" content="/thumbnail.jpg" />
-      </Helmet>
+      <Seo
+        title="ArtikAi - AI Automation Without Limits"
+        description="Chat, voice, and workflows that scale revenue while you sleep."
+        image="/thumbnail.jpg"
+      />
 
       {/* Nav */}
       <nav className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-gray-950/60 bg-gray-950/80 border-b border-cyan-500/10">

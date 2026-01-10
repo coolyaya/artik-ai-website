@@ -1,6 +1,13 @@
 import { PropsWithChildren } from "react";
 
 export default function Container({ children }: PropsWithChildren) {
-  return <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>;
+  return (
+    <div
+      data-critical-container="true"
+      className="mx-auto max-w-7xl px-gutter md:px-8 lg:px-12"
+    >
+      {children}
+    </div>
+  );
 }
 

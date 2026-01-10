@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Helmet } from 'react-helmet-async';
+import React, { useCallback, useEffect, useState } from "react";
+import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
 import { useNavigate, useLocation } from "react-router-dom";
 import { LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone } from "lucide-react";
-import { submitForm } from "../utils/submitForm";
+import { submitForm, type SubmitPayload, type SubmitResult } from "../utils/submitForm";
 
 type Service = {
   id: string;
@@ -21,28 +21,32 @@ const services: Service[] = [
   { id: "ads", name: "Ads & Creatives", icon: <Megaphone className="w-5 h-5" />, blurb: "IG/FB hooks, scripts, and creatives that perform." },
 ];
 
+type BookFormState = {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  message: string;
+  business: string;
+  source: string;
+};
+
+const initialFormState: BookFormState = {
+  name: "",
+  email: "",
+  phone: "",
+  service: "",
+  message: "",
+  business: "",
+  source: "book",
+};
+
 export default function BookPage() {
   const [selected, setSelected] = useState<Service | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [showThanks, setShowThanks] = useState(false);
-  const [form, setForm] = useState<{ 
-    name: string;
-    email: string;
-    phone: string;
-    service: string;
-    message: string;
-    business: string;
-    source: string;
-  }>({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: "",
-    business: "",
-    source: "book",
-  });
-  const navigate = useNavigate?.() as any; // tolerate absence if not using router
+  const [form, setForm] = useState<BookFormState>(initialFormState);
+  const navigate = useNavigate();
   const location = useLocation();
 
   // Preselect service from ?service=crm, etc.
@@ -63,21 +67,33 @@ export default function BookPage() {
     if (submitting) return;
     setSubmitting(true);
     try {
-      // Safety net: read from the actual form so we never miss the field
-      const fd = new FormData(e.currentTarget);
-      const biz = (fd.get("business") || fd.get("company") || fd.get("businessName") || "").toString().trim();
-      if (!form.business && biz) (form as any).business = biz;
+      const domData = new FormData(e.currentTarget);
+      const businessFromDom = (
+        domData.get("business") ??
+        domData.get("company") ??
+        domData.get("businessName") ??
+        ""
+      )
+        .toString()
+        .trim();
+      const businessValue = form.business || businessFromDom;
+      const serviceName = selected?.name ?? (form.service || "Unspecified");
 
-      // Sync selected service into payload from UI selection
-      const serviceName = selected?.name ?? "Unspecified";
-      (form as any).service = serviceName;
+      const payload: SubmitPayload = {
+        ...form,
+        service: serviceName,
+        business: businessValue,
+        company: businessValue,
+        businessName: businessValue,
+      };
 
-      console.log("[Book submit] final form â†’", form);
-      const r = await submitForm(form as any);
-      console.log("[Book submit] done:", r);
-      setShowThanks(true);   // open the message bubble/modal
-      // Reset form after success
-      setForm({ name: "", email: "", phone: "", service: "", message: "", business: "", source: "book" });
+      console.log("[Book submit] final form ->", payload);
+      const result: SubmitResult = await submitForm(payload);
+      console.log("[Book submit] done:", result);
+      if (result.ok) {
+        setShowThanks(true);
+        setForm(() => ({ ...initialFormState }));
+      }
     } catch (err) {
       console.error("[Book submit] error:", err);
     } finally {
@@ -86,13 +102,13 @@ export default function BookPage() {
   };
 
   // navigation helper
-  const redirectHome = () => {
+  const redirectHome = useCallback(() => {
     if (navigate) {
       navigate("/");
-    } else {
-      window.location.href = "/";
+      return;
     }
-  };
+    window.location.href = "/";
+  }, [navigate]);
 
   // helper for OK button in the bubble
   const handleThanksOk = () => {
@@ -104,33 +120,24 @@ export default function BookPage() {
   // Optional: auto-close + redirect after ~2.5s
   useEffect(() => {
     if (!showThanks) return;
-    const t = setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       setShowThanks(false);
-      // auto-close redirects without extra delay
       redirectHome();
     }, 2500);
-    return () => clearTimeout(t);
-  }, [showThanks]);
+    return () => window.clearTimeout(timeoutId);
+  }, [showThanks, redirectHome]);
 
   return (
-    <main className="page-animate min-h-screen bg-[#050B1A] text-white">
-      <Helmet>
-        <title>Book a Call â€“ ArtikAi</title>
-        <meta
-          name="description"
-          content="Schedule a free strategy call to see how AI can automate your support, sales, and marketing."
-        />
-        {/* Compute canonical at runtime to avoid hardcoding domain */}
-        {typeof window !== 'undefined' && (
-          <link rel="canonical" href={`${window.location.origin}/book`} />
-        )}
-        {typeof window !== 'undefined' && (
-          <meta property="og:url" content={`${window.location.origin}/book`} />
-        )}
-      </Helmet>
+    <>
+      <Seo
+        title="Book a Call - ArtikAi"
+        description="Schedule a free strategy call to see how AI can automate your support, sales, and marketing."
+        image="/thumbnail.jpg"
+      />
 
       <Navbar variant="dark" />
 
+      <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-[#050B1A] text-white">
       <section className="max-w-5xl mx-auto px-6 py-10">
           <a href="/" className="text-sm text-cyan-300 hover:underline">&lt; Back to site</a>
         <h1 className="rise mt-3 text-3xl md:text-4xl font-semibold" style={{ animationDelay: '40ms' }}>Book a free demo</h1>
@@ -275,7 +282,7 @@ export default function BookPage() {
           </div>
         </div>
       )}
-    </main>
+      </main>
+    </>
   );
 }
-

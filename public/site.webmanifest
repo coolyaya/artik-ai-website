@@ -1,11 +1,14 @@
-﻿{
-  "name": "ArtikAi",
+{
+  "name": "ArtikAi Automation",
   "short_name": "ArtikAi",
-  "icons": [
-    { "src": "/brand/artikai-icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/brand/artikai-icon-512.png", "sizes": "512x512", "type": "image/png" }
-  ],
-  "theme_color": "#0b1020",
+  "description": "ArtikAi accelerates automation with AI-powered chat, phone agents, and marketing workflows.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#00d4ff",
   "background_color": "#0b1020",
-  "display": "standalone"
+  "icons": [
+    { "src": "/icons/favicon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/favicon-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
 }

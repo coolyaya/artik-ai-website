@@ -1,0 +1,34 @@
+[
+  {
+    "id": "mike-chen",
+    "name": "Mike Chen",
+    "role": "Head of Growth",
+    "company": "LaunchLabs",
+    "quote": "ArtikAi became the engine behind our pipeline. The team books 3x more qualified calls every week because follow-ups are finally automatic.",
+    "rating": 5
+  },
+  {
+    "id": "lisa-rodriguez",
+    "name": "Lisa Rodriguez",
+    "role": "Founder",
+    "company": "CommerceWave",
+    "quote": "Their AI agents resolve most customer questions before a human ever touches the ticket. Our CSAT jumped and the queue backlog is gone.",
+    "rating": 5
+  },
+  {
+    "id": "david-park",
+    "name": "David Park",
+    "role": "Principal Consultant",
+    "company": "Northshore Advisory",
+    "quote": "Workflows that used to require four tools now run end-to-end in ArtikAi. We reclaimed an entire day every week to focus on strategy.",
+    "rating": 4
+  },
+  {
+    "id": "sarah-williams",
+    "name": "Sarah Williams",
+    "role": "RevOps Lead",
+    "company": "PipelinePro",
+    "quote": "From lead enrichment to appointment scheduling, the automations just ship. Our reps finally walk into calls with context and momentum.",
+    "rating": 5
+  }
+]
