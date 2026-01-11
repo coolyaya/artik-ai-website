@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Seo from '@/components/Seo';
 import { useNavigate, useParams } from "react-router-dom";
+import { ServiceId } from "@/data/services";
 import {
   LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone,
   ArrowRight, Check, BarChart3, LineChart as LineIcon
@@ -8,8 +9,6 @@ import {
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, BarChart, Bar
 } from "recharts";
-
-type ServiceId = "chat" | "caller" | "crm" | "web" | "ai-app" | "ads";
 
 type ServiceContent = {
   id: ServiceId;
@@ -30,7 +29,7 @@ const S: Record<ServiceId, ServiceContent> = {
     name: "AI Customer Support & Chatbots",
     icon: <MessageSquare className="w-6 h-6" />,
     summary:
-      "24/7 AI chat that answers FAQs, qualifies leads, and books calls—trained on your docs, past tickets, and site content.",
+      "24/7 AI chat that answers FAQs, qualifies leads, and books calls-trained on your docs, past tickets, and site content.",
     heroImg:
       "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=1600&auto=format&fit=crop",
     bullets: [
@@ -88,7 +87,7 @@ const S: Record<ServiceId, ServiceContent> = {
     name: "CRM Integrations & Appointment Setting",
     icon: <Calendar className="w-6 h-6" />,
     summary:
-      "Two-way sync with your CRM and calendars so leads never slip—auto-qualify, schedule, and track pipeline.",
+      "Two-way sync with your CRM and calendars so leads never slip-auto-qualify, schedule, and track pipeline.",
     heroImg:
       "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1600&auto=format&fit=crop",
     bullets: [
@@ -117,7 +116,7 @@ const S: Record<ServiceId, ServiceContent> = {
     name: "AI Website Creation",
     icon: <Globe className="w-6 h-6" />,
     summary:
-      "Conversion-first sites and funnels generated from your offers and brand—pixels, forms, and tracking included.",
+      "Conversion-first sites and funnels generated from your offers and brand-pixels, forms, and tracking included.",
     heroImg:
       "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop",
     bullets: [
@@ -146,7 +145,7 @@ const S: Record<ServiceId, ServiceContent> = {
     name: "AI App Creation",
     icon: <LayoutGrid className="w-6 h-6" />,
     summary:
-      "Custom internal or customer-facing apps powered by AI—workflows, dashboards, and secure user roles.",
+      "Custom internal or customer-facing apps powered by AI-workflows, dashboards, and secure user roles.",
     heroImg:
       "https://images.unsplash.com/photo-1551281044-8afc5a4b7f87?q=80&w=1600&auto=format&fit=crop",
     bullets: [
@@ -175,7 +174,7 @@ const S: Record<ServiceId, ServiceContent> = {
     name: "AI Ad Creatives & Marketing",
     icon: <Megaphone className="w-6 h-6" />,
     summary:
-      "High-performing IG/FB creatives from hooks to captions—auto-posting and performance learning built-in.",
+      "High-performing IG/FB creatives from hooks to captions-auto-posting and performance learning built-in.",
     heroImg:
       "https://images.unsplash.com/photo-1529336953121-ad5a0d43d0d2?q=80&w=1600&auto=format&fit=crop",
     bullets: [
@@ -315,14 +314,14 @@ export default function ServiceDetails() {
           <div className="rounded-xl border border-white/10 bg-white/5 p-6">
             <h4 className="font-semibold">Ready to see {svc.name}?</h4>
             <p className="text-sm text-gray-400 mt-1">
-              We’ll tailor the demo to your use case.
+              We'll tailor the demo to your use case.
             </p>
             <button
               onClick={() => nav(`/book?service=${svc.id}`)}
               className="mt-4 inline-flex items-center gap-2 rounded-xl bg-cyan-500/90 hover:bg-cyan-400 text-black px-4 py-2 text-sm font-medium"
-              data-analytics-cta={`service-${svc.id}-book-demo`}
+              data-analytics-cta={`service-${svc.id}-book-call`}
             >
-              Book a demo <ArrowRight className="w-4 h-4" />
+              Book a Strategy Call <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 

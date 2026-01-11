@@ -11,7 +11,7 @@ export default function RunTweakRepeat(){
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{marginTop:24}}>
         {[
           { icon: 'ðŸš€', text:'Launch flows with one click' },
-          { icon: 'ðŸ“ˆ', text:'Trace and measure responses' },
+          { icon: 'ðŸ"ˆ', text:'Trace and measure responses' },
           { icon: 'ðŸ§ª', text:'A/B test prompts & tools' },
         ].map((s,i)=>(
           <div key={i} className="card min-w-0">

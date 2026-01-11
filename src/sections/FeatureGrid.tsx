@@ -8,7 +8,7 @@ const features = [
     copy: "Design flows visually and extend with code when you need precision.",
   },
   { icon: Cloud, title: "Self-host or Cloud", copy: "Run on your infra or use ArtikAi Cloud for zero ops." },
-  { icon: Plug, title: "500+ integrations", copy: "Connect your stack — CRMs, DBs, messaging, and more." },
+  { icon: Plug, title: "500+ integrations", copy: "Connect your stack - CRMs, DBs, messaging, and more." },
   { icon: Database, title: "AI on your data", copy: "Ground LLMs in your knowledge base and data sources." },
   { icon: ShieldCheck, title: "RBAC & SSO", copy: "Granular roles, SSO, and audit logs for teams." },
   { icon: Library, title: "Templates library", copy: "Start fast with ready-to-use recipes for common flows." },

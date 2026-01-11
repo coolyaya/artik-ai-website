@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
 
-# Optional: update to your deployed domain
-# Sitemap: https://your-domain.com/sitemap.xml
-
+Sitemap: https://artikai.com/sitemap.xml

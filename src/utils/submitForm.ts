@@ -62,7 +62,7 @@ async function tryJson(url: string, payload: SubmitPayload) {
 async function tryForm(url: string, payload: SubmitPayload) {
   const body = new URLSearchParams();
   Object.entries(normalisePayload(payload)).forEach(([key, value]) => body.append(key, value));
-  // No headers → simple request → no preflight
+  // No headers -> simple request -> no preflight
   return withTimeout(fetch(url, { method: "POST", body }));
 }
 

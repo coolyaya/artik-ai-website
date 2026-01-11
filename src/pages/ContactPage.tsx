@@ -1,7 +1,6 @@
 import React from 'react';
 import Seo from '@/components/Seo';
 import Navbar from '@/components/Navbar';
-import { getVoiceflowClient, loadVoiceflow, openVoiceflow } from '@/lib/voiceflow';
 import { submitForm, type SubmitPayload } from '../utils/submitForm';
 
 type ContactFormState = {
@@ -13,7 +12,6 @@ type ContactFormState = {
 export default function ContactPage() {
   const [form, setForm] = React.useState<ContactFormState>({ name: '', email: '', message: '' });
   const [status, setStatus] = React.useState<'idle' | 'loading' | 'ok' | 'err'>('idle');
-  const [botReady, setBotReady] = React.useState(false);
 
   const handleFieldChange = (
     field: keyof ContactFormState,
@@ -40,57 +38,11 @@ export default function ContactPage() {
     }
   }
 
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    let cancelled = false;
-
-    loadVoiceflow().catch((error) => {
-      console.warn('[Contact] Voiceflow load warning', error);
-    });
-
-    const checkReady = () => {
-      if (cancelled) return true;
-      const api = getVoiceflowClient();
-      if (api?.open) {
-        setBotReady((prev) => (prev ? prev : true));
-        return true;
-      }
-      return false;
-    };
-
-    if (checkReady()) {
-      return () => {
-        cancelled = true;
-      };
-    }
-
-    const interval = window.setInterval(() => {
-      if (checkReady()) {
-        window.clearInterval(interval);
-      }
-    }, 400);
-
-    return () => {
-      cancelled = true;
-      window.clearInterval(interval);
-    };
-  }, []);
-
-  const handleVoiceflowChat = () => {
-    if (!botReady) return;
-    try {
-      openVoiceflow();
-    } catch (error) {
-      console.error('[Contact] Voiceflow open failed', error);
-    }
-  };
-
   return (
     <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-gray-950 text-white">
       <Seo
         title="Contact - ArtikAi"
-        description="Get in touch with ArtikAi to start automating."
+        description="Have questions about the Website + Booking + Reviews system? Contact us or book a strategy call."
         image="/thumbnail.jpg"
       />
 
@@ -103,8 +55,8 @@ export default function ContactPage() {
         <section className="mx-auto max-w-6xl px-4 pb-24 pt-16 sm:px-6 lg:px-8">
           <header className="rise max-w-3xl" style={{ animationDelay: '40ms' }}>
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300/80">Contact</span>
-            <h1 className="mt-3 text-3xl font-bold md:text-5xl">Tell us about your next automation.</h1>
-            <p className="mt-4 text-base text-gray-300 md:text-lg">Share a bit about the use case and current tools. We'll review and get back fast with next steps.</p>
+            <h1 className="mt-3 text-3xl font-bold md:text-5xl">Questions about getting more booked jobs?</h1>
+            <p className="mt-4 text-base text-gray-300 md:text-lg">Share your services and cities. We'll reply quickly with next steps or book you into a strategy call.</p>
           </header>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
@@ -181,7 +133,7 @@ export default function ContactPage() {
             >
               <h2 className="text-lg font-semibold text-white">Prefer talking it through?</h2>
               <p>
-                Book a short planning session and we'll map out the project, estimate platform costs, and plug you into the right package.
+                Book a short strategy call and we&apos;ll map the Website + Booking + Reviews install for your service areas.
               </p>
               <div className="space-y-3 text-gray-300/90">
                 <p><span className="font-semibold text-white">Hours:</span> 24/7</p>
@@ -191,27 +143,11 @@ export default function ContactPage() {
                 <a
                   href="/book"
                   className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-500/40 px-5 py-2 text-sm font-semibold text-cyan-100 transition focus:outline-none focus:ring-2 focus:ring-cyan-400/40 focus:ring-offset-2 focus:ring-offset-gray-950 hover:border-cyan-400 hover:text-white"
-                  data-analytics-cta="contact-book-demo"
+                  data-analytics-cta="contact-book-call"
                 >
-                  Book a demo slot
+                  Book a Strategy Call
                 </a>
-                <button
-                  type="button"
-                  onClick={handleVoiceflowChat}
-                  disabled={!botReady}
-                  className={"inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition focus:outline-none disabled:opacity-70 " + (botReady
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-gray-950 shadow-lg shadow-cyan-500/20 hover:brightness-110 focus:ring-2 focus:ring-cyan-400/50 focus:ring-offset-2 focus:ring-offset-gray-950'
-                    : 'bg-white/10 text-gray-400 cursor-not-allowed')}
-                  data-analytics-cta="contact-ai-assistant"
-                >
-                  Chat with the AI assistant
-                </button>
               </div>
-              <p className="text-xs text-gray-400">
-                {botReady
-                  ? 'The Voiceflow bot opens in the bottom-right corner.'
-                  : 'Voiceflow assistant is loading - button activates once ready.'}
-              </p>
             </div>
           </div>
         </section>

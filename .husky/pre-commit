@@ -1,5 +1,2 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 # Lint source and API, allow warnings so commits pass
 pnpm exec eslint "src/**/*.{ts,tsx,js,jsx}" "api/**/*.ts" --max-warnings=999

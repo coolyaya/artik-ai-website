@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 import { ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Line } from "recharts";
 import { Bot, PhoneCall, CalendarClock, Globe2, AppWindow, Megaphone, X } from "lucide-react";
@@ -10,7 +10,7 @@ type MetricPoint = {
 };
 
 type FeatureItem = {
-  icon: JSX.Element;
+  icon: ReactElement;
   title: string;
   copy: string;
   details: {

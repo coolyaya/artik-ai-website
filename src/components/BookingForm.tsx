@@ -19,7 +19,7 @@ export default function BookingForm({ defaultService, onDone }: Props) {
   const [form, setForm] = React.useState<BookingFormState>({
     name: "",
     email: "",
-    service: defaultService || "AI Customer Support & Chatbots",
+    service: defaultService || "Full Website System",
     message: "",
   });
 
@@ -80,12 +80,11 @@ export default function BookingForm({ defaultService, onDone }: Props) {
           onChange={(e) => setForm({ ...form, service: e.target.value })}
           className="w-full rounded-md border border-cyan-400/30 bg-black/30 px-3 py-2 outline-none focus:border-cyan-400"
         >
-          <option>AI Customer Support & Chatbots</option>
-          <option>AI Phone Callers</option>
-          <option>CRM Integrations & Appointment Setting</option>
-          <option>AI Website Creation</option>
-          <option>AI App Creation</option>
-          <option>AI Ad Creatives & Marketing</option>
+          <option>Website + Booking Foundation</option>
+          <option>Lead capture + instant response</option>
+          <option>Follow-up automation + nurture</option>
+          <option>Reviews engine + local SEO expansion</option>
+          <option>Full Website System</option>
         </select>
       </label>
 
@@ -96,7 +95,7 @@ export default function BookingForm({ defaultService, onDone }: Props) {
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
           className="w-full rounded-md border border-cyan-400/30 bg-black/30 px-3 py-2 outline-none focus:border-cyan-400"
-          placeholder="Anything we should know before the demo?"
+          placeholder="Anything we should know before the call?"
         />
       </label>
 

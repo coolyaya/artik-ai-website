@@ -41,7 +41,7 @@ export default function IntegrationsStrip(){
       <div style={{textAlign:'center', marginBottom:16}}>
         <div className="kicker">Plug AI into your data</div>
         <h2 className="h2" style={{marginTop:8}}>500+ integrations</h2>
-        <p className="lead">Databases, SaaS tools, clouds, and APIs—mix and match without glue code.</p>
+        <p className="lead">Databases, SaaS tools, clouds, and APIs-mix and match without glue code.</p>
       </div>
 
       <div className="integrations-grid">

@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
+import Seo from '@/components/Seo';
 
 export default function ServerErrorPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-white">
-      <Helmet>
-        <title>Something went wrong - ArtikAi</title>
-      </Helmet>
+      <Seo title="Something went wrong - ArtikAi" description="An unexpected error occurred. Please try again." />
       <Navbar variant="dark" />
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 py-24 text-center sm:py-32">
         <span className="rounded-full border border-white/10 px-4 py-1 text-xs uppercase tracking-[0.3em] text-cyan-200/80">

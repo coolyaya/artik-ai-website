@@ -68,7 +68,7 @@ export default function TestimonialsCarousel() {
           <div className="relative mx-auto mt-12 max-w-2xl overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-10 shadow-lg">
             <figure className="space-y-6">
               <blockquote className="text-lg font-medium text-white sm:text-xl">
-                “{activeTestimonial.quote}”
+                "{activeTestimonial.quote}"
               </blockquote>
               <figcaption className="flex items-center justify-center gap-4 text-left sm:justify-start">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-400/10 text-sm font-semibold text-cyan-200">

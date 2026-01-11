@@ -33,9 +33,9 @@ export default function Testimonials() {
               ‹
             </button>
             <div className="mx-4 flex-1 text-center">
-              <blockquote className="text-lg md:text-xl text-white/90">“{TESTIMONIALS[index].quote}”</blockquote>
+              <blockquote className="text-lg md:text-xl text-white/90">"{TESTIMONIALS[index].quote}"</blockquote>
               <div className="mt-3 text-sm text-white/70">
-                {TESTIMONIALS[index].name} • {TESTIMONIALS[index].role}
+                {TESTIMONIALS[index].name} - {TESTIMONIALS[index].role}
               </div>
             </div>
             <button

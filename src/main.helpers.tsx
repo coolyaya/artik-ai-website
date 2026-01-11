@@ -5,14 +5,23 @@ import {
   loadBookPage,
   loadContactPage,
   loadHomePage,
+  loadIndustriesIndexPage,
+  loadIndustryDetailPage,
+  loadLocationsIndexPage,
+  loadLocationDetailPage,
   loadNotFoundPage,
   loadPricingPage,
   loadProductPage,
+  loadProcessPage,
+  loadResultsPage,
   loadServerErrorPage,
   loadServiceDetailsPage,
   loadServicesPage,
   loadTemplatesPage,
   loadUseCaseDetailPage,
+  loadWebsiteSystemPage,
+  loadFAQPage,
+  loadAboutPage,
   setupRoutePrefetching,
 } from "@/utils/routePrefetch";
 
@@ -27,6 +36,15 @@ const PricingPage = lazy(loadPricingPage);
 const ContactPage = lazy(loadContactPage);
 const TemplatesPage = lazy(loadTemplatesPage);
 const UseCaseDetailPage = lazy(loadUseCaseDetailPage);
+const WebsiteSystemPage = lazy(loadWebsiteSystemPage);
+const IndustriesIndexPage = lazy(loadIndustriesIndexPage);
+const IndustryDetailPage = lazy(loadIndustryDetailPage);
+const LocationsIndexPage = lazy(loadLocationsIndexPage);
+const LocationDetailPage = lazy(loadLocationDetailPage);
+const ResultsPage = lazy(loadResultsPage);
+const ProcessPage = lazy(loadProcessPage);
+const FAQPage = lazy(loadFAQPage);
+const AboutPage = lazy(loadAboutPage);
 const NotFoundPage = lazy(loadNotFoundPage);
 const ServerErrorPage = lazy(loadServerErrorPage);
 
@@ -70,6 +88,15 @@ export function AppRoutes() {
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/service/:id" element={<ServiceDetailsPage />} />
+          <Route path="/website-system" element={<WebsiteSystemPage />} />
+          <Route path="/industries" element={<IndustriesIndexPage />} />
+          <Route path="/industries/:industrySlug" element={<IndustryDetailPage />} />
+          <Route path="/locations" element={<LocationsIndexPage />} />
+          <Route path="/locations/:citySlug" element={<LocationDetailPage />} />
+          <Route path="/results" element={<ResultsPage />} />
+          <Route path="/process" element={<ProcessPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/500" element={<ServerErrorPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

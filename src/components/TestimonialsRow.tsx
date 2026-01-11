@@ -14,7 +14,7 @@ export default function TestimonialsRow(){
         {quotes.map((t,i)=>(
           <figure key={i} className="card" style={{minHeight:120}}>
             <blockquote style={{margin:0}}>{t.q}</blockquote>
-            <figcaption className="lead" style={{marginTop:10}}>— {t.a}</figcaption>
+            <figcaption className="lead" style={{marginTop:10}}>- {t.a}</figcaption>
           </figure>
         ))}
       </div>

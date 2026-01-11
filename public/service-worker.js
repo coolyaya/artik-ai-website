@@ -1,15 +1,26 @@
-const CACHE_NAME = 'artikai-static-v1';
-const ASSET_CACHE = 'artikai-runtime-v1';
+const CACHE_NAME = 'artikai-static-v2';
+const ASSET_CACHE = 'artikai-runtime-v2';
 
 const CORE_ASSETS = [
   '/',
   '/index.html',
   '/site.webmanifest',
-  '/thumbnail.jpg',
-  '/favicon.png',
-  '/icons/favicon-192x192.png',
-  '/icons/favicon-512x512.png',
-  '/icons/apple-touch-icon-180x180.png',
+  '/thumbnail.webp',
+  '/icons/favicon-16x16.webp',
+  '/icons/favicon-32x32.webp',
+  '/icons/favicon-48x48.webp',
+  '/icons/favicon-64x64.webp',
+  '/icons/favicon-96x96.webp',
+  '/icons/favicon-128x128.webp',
+  '/icons/favicon-180x180.webp',
+  '/icons/favicon-192x192.webp',
+  '/icons/favicon-256x256.webp',
+  '/icons/favicon-384x384.webp',
+  '/icons/favicon-512x512.webp',
+  '/icons/apple-touch-icon-120x120.webp',
+  '/icons/apple-touch-icon-152x152.webp',
+  '/icons/apple-touch-icon-167x167.webp',
+  '/icons/apple-touch-icon-180x180.webp',
 ];
 
 self.addEventListener('install', (event) => {
@@ -33,7 +44,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-const STATIC_ASSET_REGEX = /\.(?:js|css|png|jpg|jpeg|svg|gif|webp|webm|mp4|mp3|woff2?|ttf|eot|ico)$/i;
+const STATIC_ASSET_REGEX = /\.(?:js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ttf|eot|ico)$/i;
 
 self.addEventListener('fetch', (event) => {
   const { request } = event;
@@ -49,7 +60,7 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('/', copy)).catch(() => undefined);
+          caches.open(CACHE_NAME).then((cache) => cache.put('/index.html', copy)).catch(() => undefined);
           return response;
         })
         .catch(() => caches.match('/index.html')),
@@ -57,7 +68,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (url.origin === self.location.origin && STATIC_ASSET_REGEX.test(url.pathname)) {
+  const isMedia = request.destination === 'video' || request.destination === 'audio';
+
+  if (url.origin === self.location.origin && STATIC_ASSET_REGEX.test(url.pathname) && !isMedia) {
     event.respondWith(
       caches.match(request).then((cached) => {
         if (cached) {

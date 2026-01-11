@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- TODO: Replace domain with your production URL -->
-  <url><loc>https://your-domain.com/</loc></url>
-  <url><loc>https://your-domain.com/book</loc></url>
-  <url><loc>https://your-domain.com/service/chat</loc></url>
-  <url><loc>https://your-domain.com/service/caller</loc></url>
-  <url><loc>https://your-domain.com/service/crm</loc></url>
-  <url><loc>https://your-domain.com/service/web</loc></url>
-  <url><loc>https://your-domain.com/service/ai-app</loc></url>
-  <url><loc>https://your-domain.com/service/ads</loc></url>
+  <url><loc>https://artikai.com/</loc></url>
+  <url><loc>https://artikai.com/product</loc></url>
+  <url><loc>https://artikai.com/templates</loc></url>
+  <url><loc>https://artikai.com/book</loc></url>
+  <url><loc>https://artikai.com/services</loc></url>
+  <url><loc>https://artikai.com/pricing</loc></url>
+  <url><loc>https://artikai.com/contact</loc></url>
+  <url><loc>https://artikai.com/website-system</loc></url>
+  <url><loc>https://artikai.com/industries</loc></url>
+  <url><loc>https://artikai.com/locations</loc></url>
+  <url><loc>https://artikai.com/results</loc></url>
+  <url><loc>https://artikai.com/process</loc></url>
+  <url><loc>https://artikai.com/faq</loc></url>
+  <url><loc>https://artikai.com/about</loc></url>
+  <url><loc>https://artikai.com/industries/roofing-exteriors</loc></url>
+  <url><loc>https://artikai.com/industries/hvac</loc></url>
+  <url><loc>https://artikai.com/industries/plumbing</loc></url>
+  <url><loc>https://artikai.com/industries/landscaping</loc></url>
+  <url><loc>https://artikai.com/industries/cleaning-restoration</loc></url>
+  <url><loc>https://artikai.com/industries/pressure-washing</loc></url>
+  <url><loc>https://artikai.com/industries/pest-control</loc></url>
+  <url><loc>https://artikai.com/industries/pools</loc></url>
+  <url><loc>https://artikai.com/locations/orlando</loc></url>
+  <url><loc>https://artikai.com/locations/melbourne-fl</loc></url>
+  <url><loc>https://artikai.com/locations/rockledge</loc></url>
+  <url><loc>https://artikai.com/locations/cocoa</loc></url>
+  <url><loc>https://artikai.com/locations/cocoa-beach</loc></url>
+  <url><loc>https://artikai.com/locations/titusville</loc></url>
+  <url><loc>https://artikai.com/locations/clearwater</loc></url>
+  <url><loc>https://artikai.com/locations/oviedo</loc></url>
+  <url><loc>https://artikai.com/service/chat</loc></url>
+  <url><loc>https://artikai.com/service/caller</loc></url>
+  <url><loc>https://artikai.com/service/crm</loc></url>
+  <url><loc>https://artikai.com/service/web</loc></url>
+  <url><loc>https://artikai.com/service/ai-app</loc></url>
+  <url><loc>https://artikai.com/service/ads</loc></url>
+  <url><loc>https://artikai.com/use-cases/support</loc></url>
+  <url><loc>https://artikai.com/use-cases/callers</loc></url>
+  <url><loc>https://artikai.com/use-cases/crm</loc></url>
+  <url><loc>https://artikai.com/use-cases/websites</loc></url>
+  <url><loc>https://artikai.com/use-cases/apps</loc></url>
+  <url><loc>https://artikai.com/use-cases/ads</loc></url>
 </urlset>
-

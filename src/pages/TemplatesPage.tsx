@@ -61,31 +61,6 @@ const SHOWCASE_SECTIONS: ShowcaseCategory[] = [
     ],
   },
   {
-    id: 'voiceflow',
-    title: 'Voiceflow bots in production',
-    blurb: 'Multichannel assistants that answer questions, qualify leads, and hand off to humans without losing context.',
-    items: [
-      {
-        name: 'Support Desk Copilot',
-        description: 'Handles Tier 1 questions on chat, escalates edge cases with full transcript summaries to Zendesk.',
-        tags: ['Voiceflow', 'Zendesk', 'OpenAI'],
-        href: '/book?service=chat',
-      },
-      {
-        name: 'Appointment Setter',
-        description: 'Voice + SMS bot that calls inbound leads, proposes times, and books meetings straight onto shared calendars.',
-        tags: ['Voiceflow', 'Twilio Voice', 'Google Calendar'],
-        href: '/book?service=caller',
-      },
-      {
-        name: 'Product Onboarding Guide',
-        description: 'Guides new users through setup, surfaces adoption blockers, and nudges CSMs when intervention is needed.',
-        tags: ['Voiceflow', 'Slack', 'Notion'],
-        href: '/book?service=chat',
-      },
-    ],
-  },
-  {
     id: 'other-products',
     title: 'Other automation products',
     blurb: 'Internal tools and revenue ops automations that tie AI workflows into the rest of the stack.',
@@ -135,7 +110,7 @@ export default function TemplatesPage() {
             to="/book"
             className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 text-black font-semibold shadow-[0_15px_60px_rgba(34,211,238,0.35)] hover:opacity-90"
           >
-            Book a demo
+            Book a Strategy Call
           </Link>
           <a
             href="#showcase"

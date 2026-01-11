@@ -1,11 +1,10 @@
-﻿import React, { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import DarkFooter from "@/components/DarkFooter";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
-
-type UseCaseSlug = "support" | "callers" | "crm" | "websites" | "apps" | "ads";
+import Seo from "@/components/Seo";
+import { UseCaseSlug, useCaseSlugs } from "@/data/useCases";
 
 type UseCaseContent = {
   name: string;
@@ -315,7 +314,7 @@ const useCaseContent: Record<UseCaseSlug, UseCaseContent> = {
 };
 
 const isUseCaseSlug = (value: string | undefined): value is UseCaseSlug => {
-  return typeof value === "string" && Object.prototype.hasOwnProperty.call(useCaseContent, value);
+  return typeof value === "string" && useCaseSlugs.includes(value as UseCaseSlug);
 };
 
 export default function UseCaseDetailPage() {
@@ -343,16 +342,14 @@ export default function UseCaseDetailPage() {
     ? "grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch"
     : "grid gap-8";
 
-  const otherCases = (Object.keys(useCaseContent) as UseCaseSlug[])
-    .filter((key) => key !== slug)
-    .map((key) => ({ slug: key, name: useCaseContent[key].name }));
+  const otherCases = useCaseSlugs.filter((key) => key !== slug).map((key) => ({
+    slug: key,
+    name: useCaseContent[key].name,
+  }));
 
   return (
     <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-[#050B1A] text-white">
-      <Helmet>
-        <title>{`${config.name} - Use Cases | ArtikAi`}</title>
-        <meta name="description" content={config.seoDescription} />
-      </Helmet>
+      <Seo title={`${config.name} - Use Cases | ArtikAi`} description={config.seoDescription} />
       <Navbar variant="dark" />
 
       <section className="relative overflow-hidden border-b border-white/10 bg-gradient-to-br from-[#0B1224] via-[#070C1A] to-[#050810]">
@@ -477,7 +474,7 @@ export default function UseCaseDetailPage() {
               to={`/book?service=${config.serviceId}`}
               className="inline-flex items-center gap-2 rounded-2xl bg-cyan-500 px-5 py-3 text-sm font-semibold text-black transition hover:bg-cyan-400"
             >
-              Book a demo <ArrowRight className="h-4 w-4" />
+              Book a Strategy Call <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

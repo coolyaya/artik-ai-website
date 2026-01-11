@@ -14,9 +14,9 @@
  *   node scripts/healthcheck.js --fix   (only auto-fixes lint if your project supports it)
  */
 
-const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+import { execSync } from "node:child_process";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 const args = process.argv.slice(2);
 const FIX = args.includes("--fix");

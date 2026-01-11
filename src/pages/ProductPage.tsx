@@ -92,9 +92,9 @@ export default function ProductPage() {
           <Link
             to="/book"
             className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 text-black font-semibold shadow-[0_15px_60px_rgba(34,211,238,0.35)] hover:opacity-90"
-            data-analytics-cta="product-book-demo"
+            data-analytics-cta="product-book-call"
           >
-            Book a demo <ArrowRight className="w-5 h-5" />
+            Book a Strategy Call <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </header>

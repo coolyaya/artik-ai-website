@@ -1,21 +1,24 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { Play } from "lucide-react";
 
 export default function DemoVideo() {
   const [playing, setPlaying] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [dimensions, setDimensions] = useState<{ w: number; h: number } | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   function handlePlay() {
-    const el = videoRef.current;
-    if (el) {
-      setControlsVisible(true);
+    setShouldLoad(true);
+    setControlsVisible(true);
+    requestAnimationFrame(() => {
+      const el = videoRef.current;
+      if (!el) return;
       el.play().catch(() => {
         // keep controls visible even if play fails
       });
-    }
+    });
   }
 
   return (
@@ -24,9 +27,9 @@ export default function DemoVideo() {
         ref={videoRef}
         className="absolute inset-0 block w-full h-full mx-auto"
         controls={controlsVisible}
-        poster="/thumbnail.jpg"
+        poster="/thumbnail.webp"
         playsInline
-        preload="metadata"
+        preload="none"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onLoadedMetadata={() => {
@@ -44,13 +47,17 @@ export default function DemoVideo() {
         onError={() => {
           const el = videoRef.current;
           const code = (el?.error && (el.error as MediaError)?.code) || "";
-          setErrorMsg(`Unable to play this file${code ? ` (error ${code})` : ''}. Try an H.264 (yuv420p) MP4.`);
+          setErrorMsg(`Unable to play this file${code ? ` (error ${code})` : ""}. Try an H.264 (yuv420p) MP4.`);
         }}
       >
-        <source src="/demo-video-vp9.webm" type="video/webm" />
-        <source src="/demo-video-h264.mp4" type='video/mp4; codecs="avc1.640028, mp4a.40.2"' />
-        <source src="/demo-video.mp4" type="video/mp4" />
-        Sorry, your browser doesn’t support embedded videos.
+        {shouldLoad ? (
+          <>
+            <source src="/demo-video-vp9.webm" type="video/webm" />
+            <source src="/demo-video-h264.mp4" type='video/mp4; codecs="avc1.640028, mp4a.40.2"' />
+            <source src="/demo-video.mp4" type="video/mp4" />
+          </>
+        ) : null}
+        Sorry, your browser doesn't support embedded videos.
       </video>
 
       {!playing && (
@@ -72,4 +79,3 @@ export default function DemoVideo() {
     </>
   );
 }
-

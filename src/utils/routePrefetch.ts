@@ -1,4 +1,6 @@
-type Loader = () => Promise<unknown>;
+import type { ComponentType } from "react";
+
+type Loader = () => Promise<{ default: ComponentType<unknown> }>;
 
 export const loadHomePage: Loader = () => import('../App');
 export const loadProductPage: Loader = () => import('../pages/ProductPage');
@@ -9,6 +11,15 @@ export const loadPricingPage: Loader = () => import('../pages/PricingPage');
 export const loadContactPage: Loader = () => import('../pages/ContactPage');
 export const loadTemplatesPage: Loader = () => import('../pages/TemplatesPage');
 export const loadUseCaseDetailPage: Loader = () => import('../pages/UseCaseDetailPage');
+export const loadWebsiteSystemPage: Loader = () => import('../pages/WebsiteSystemPage');
+export const loadIndustriesIndexPage: Loader = () => import('../pages/IndustriesIndexPage');
+export const loadIndustryDetailPage: Loader = () => import('../pages/IndustryDetailPage');
+export const loadLocationsIndexPage: Loader = () => import('../pages/LocationsIndexPage');
+export const loadLocationDetailPage: Loader = () => import('../pages/LocationDetailPage');
+export const loadResultsPage: Loader = () => import('../pages/ResultsPage');
+export const loadProcessPage: Loader = () => import('../pages/ProcessPage');
+export const loadFAQPage: Loader = () => import('../pages/FAQPage');
+export const loadAboutPage: Loader = () => import('../pages/AboutPage');
 export const loadNotFoundPage: Loader = () => import('../pages/404');
 export const loadServerErrorPage: Loader = () => import('../pages/500');
 
@@ -28,6 +39,15 @@ const matchers: PrefetchMatcher[] = [
   { match: (path) => path === '/templates', load: loadTemplatesPage },
   { match: (path) => path === '/use-cases', load: loadUseCaseDetailPage },
   { match: (path) => path.startsWith('/use-cases/'), load: loadUseCaseDetailPage },
+  { match: (path) => path === '/website-system', load: loadWebsiteSystemPage },
+  { match: (path) => path === '/industries', load: loadIndustriesIndexPage },
+  { match: (path) => path.startsWith('/industries/'), load: loadIndustryDetailPage },
+  { match: (path) => path === '/locations', load: loadLocationsIndexPage },
+  { match: (path) => path.startsWith('/locations/'), load: loadLocationDetailPage },
+  { match: (path) => path === '/results', load: loadResultsPage },
+  { match: (path) => path === '/process', load: loadProcessPage },
+  { match: (path) => path === '/faq', load: loadFAQPage },
+  { match: (path) => path === '/about', load: loadAboutPage },
   { match: (path) => path === '/500', load: loadServerErrorPage },
   { match: (path) => path === '/404' || path === '/not-found', load: loadNotFoundPage },
 ];

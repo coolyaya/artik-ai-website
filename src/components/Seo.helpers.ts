@@ -20,9 +20,9 @@ export type TwitterOptions = {
 };
 
 export const DEFAULT_META = {
-  title: "ArtikAi | Workflow automation for support, sales, and marketing",
+  title: "ArtikAi | Website + Booking + Reviews System for Local Service Businesses",
   description:
-    "ArtikAi builds AI copilots that automate customer support, sales follow-up, and marketing workflows while staying in sync with your stack.",
+    "Done-for-you website, SMS/email follow-up, booking, and Google reviews engine that turns traffic into booked jobs and improves Google Maps rankings.",
   image: "/thumbnail.jpg",
 };
 

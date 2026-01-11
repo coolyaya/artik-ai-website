@@ -1,287 +1,64 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Seo from '@/components/Seo';
-import Navbar from '@/components/Navbar';
-import { useNavigate, useLocation } from "react-router-dom";
-import { LayoutGrid, MessageSquare, PhoneCall, Calendar, Globe, Megaphone } from "lucide-react";
-import { submitForm, type SubmitPayload, type SubmitResult } from "../utils/submitForm";
+import React from "react";
+import Seo from "@/components/Seo";
+import Navbar from "@/components/Navbar";
+import BookingForm from "@/components/BookingForm";
+import { CheckCircle2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
-type Service = {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-  blurb: string;
-};
-
-const services: Service[] = [
-  { id: "ai-app", name: "AI App Creation", icon: <LayoutGrid className="w-5 h-5" />, blurb: "Custom AI-powered apps tailored to your workflow." },
-  { id: "chat", name: "AI Support & Chat", icon: <MessageSquare className="w-5 h-5" />, blurb: "24/7 site chat + social DMs that qualify and convert." },
-  { id: "caller", name: "AI Phone Caller", icon: <PhoneCall className="w-5 h-5" />, blurb: "Missed-call text-back + outbound AI caller that books." },
-  { id: "crm", name: "CRM & Calendar", icon: <Calendar className="w-5 h-5" />, blurb: "Airtable/HubSpot with Google/Outlook scheduling." },
-  { id: "web", name: "Websites & Funnels", icon: <Globe className="w-5 h-5" />, blurb: "High-converting pages with pixels and tracking." },
-  { id: "ads", name: "Ads & Creatives", icon: <Megaphone className="w-5 h-5" />, blurb: "IG/FB hooks, scripts, and creatives that perform." },
+const bullets = [
+  "We respond fast-expect a confirmation and follow-up quickly.",
+  "Bring your service lines and coverage areas; we'll map the install.",
+  "No generic demo. We focus on how to convert your leads into booked jobs.",
 ];
 
-type BookFormState = {
-  name: string;
-  email: string;
-  phone: string;
-  service: string;
-  message: string;
-  business: string;
-  source: string;
-};
-
-const initialFormState: BookFormState = {
-  name: "",
-  email: "",
-  phone: "",
-  service: "",
-  message: "",
-  business: "",
-  source: "book",
-};
-
 export default function BookPage() {
-  const [selected, setSelected] = useState<Service | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-  const [showThanks, setShowThanks] = useState(false);
-  const [form, setForm] = useState<BookFormState>(initialFormState);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  // Preselect service from ?service=crm, etc.
-  useEffect(() => {
-    const p = new URLSearchParams(location.search);
-    const q = p.get("service");
-    if (!q) return;
-    const found = services.find((s) => s.id === q);
-    if (found) setSelected(found);
-  }, [location.search]);
-
-  const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (submitting) return;
-    setSubmitting(true);
-    try {
-      const domData = new FormData(e.currentTarget);
-      const businessFromDom = (
-        domData.get("business") ??
-        domData.get("company") ??
-        domData.get("businessName") ??
-        ""
-      )
-        .toString()
-        .trim();
-      const businessValue = form.business || businessFromDom;
-      const serviceName = selected?.name ?? (form.service || "Unspecified");
-
-      const payload: SubmitPayload = {
-        ...form,
-        service: serviceName,
-        business: businessValue,
-        company: businessValue,
-        businessName: businessValue,
-      };
-
-      console.log("[Book submit] final form ->", payload);
-      const result: SubmitResult = await submitForm(payload);
-      console.log("[Book submit] done:", result);
-      if (result.ok) {
-        setShowThanks(true);
-        setForm(() => ({ ...initialFormState }));
-      }
-    } catch (err) {
-      console.error("[Book submit] error:", err);
-    } finally {
-      setSubmitting(false); // ALWAYS clear loading
-    }
-  };
-
-  // navigation helper
-  const redirectHome = useCallback(() => {
-    if (navigate) {
-      navigate("/");
-      return;
-    }
-    window.location.href = "/";
-  }, [navigate]);
-
-  // helper for OK button in the bubble
-  const handleThanksOk = () => {
-    setShowThanks(false);
-    // add a short delay before redirect
-    setTimeout(redirectHome, 50);
-  };
-
-  // Optional: auto-close + redirect after ~2.5s
-  useEffect(() => {
-    if (!showThanks) return;
-    const timeoutId = window.setTimeout(() => {
-      setShowThanks(false);
-      redirectHome();
-    }, 2500);
-    return () => window.clearTimeout(timeoutId);
-  }, [showThanks, redirectHome]);
-
   return (
     <>
       <Seo
-        title="Book a Call - ArtikAi"
-        description="Schedule a free strategy call to see how AI can automate your support, sales, and marketing."
+        title="Book a Strategy Call - ArtikAi"
+        description="Want more booked jobs? Answer a few questions and schedule a call to install the Website + Booking + Reviews system."
         image="/thumbnail.jpg"
       />
 
       <Navbar variant="dark" />
 
       <main id="main-content" tabIndex={-1} className="page-animate min-h-screen bg-[#050B1A] text-white">
-      <section className="max-w-5xl mx-auto px-6 py-10">
-          <a href="/" className="text-sm text-cyan-300 hover:underline">&lt; Back to site</a>
-        <h1 className="rise mt-3 text-3xl md:text-4xl font-semibold" style={{ animationDelay: '40ms' }}>Book a free demo</h1>
-        <p className="rise mt-2 text-gray-400" style={{ animationDelay: '120ms' }}>Choose what you'd like to see, then tell us how to contact you.</p>
+        <div className="relative isolate overflow-hidden bg-gradient-to-b from-slate-950 via-gray-950 to-black">
+          <div className="pointer-events-none absolute left-1/2 top-[-8rem] -z-10 h-64 w-64 -translate-x-1/2 rounded-full bg-cyan-500/25 blur-3xl" />
+          <div className="pointer-events-none absolute right-[-4rem] bottom-[-4rem] -z-10 h-72 w-72 rounded-full bg-blue-600/20 blur-3xl" />
 
-        {/* Service chooser */}
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {services.map((s, i) => {
-            const active = selected?.id === s.id;
-            return (
-              <button
-                type="button"
-                key={s.id}
-                onClick={() => setSelected(s)}
-                className={`rise text-left rounded-2xl border p-4 hover:bg-white/5 transition ${
-                  active ? "border-cyan-400 shadow-[0_0_30px_rgba(0,212,255,.2)]" : "border-white/10"
-                }`}
-                style={{ animationDelay: `${160 + i * 80}ms` }}
-              >
-                <div className="flex items-center gap-3">
-                  <div className={`rounded-lg p-2 ${active ? "bg-cyan-500/20 text-cyan-300" : "bg-white/5 text-white"}`}>
-                    {s.icon}
-                  </div>
-                  <div className="font-medium">{s.name}</div>
+          <section className="max-w-5xl mx-auto px-6 py-14">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300/80">Book</p>
+            <h1 className="mt-3 text-3xl md:text-4xl font-semibold">Want more booked jobs?</h1>
+            <p className="mt-2 text-gray-300">Answer a few questions and schedule a call. We'll map the Website + Booking + Reviews install for your service areas.</p>
+
+            <div className="mt-8 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-cyan-500/10">
+                <h2 className="text-lg font-semibold text-white">What to expect</h2>
+                <ul className="space-y-3 text-sm text-gray-200">
+                  {bullets.map((b) => (
+                    <li key={b} className="flex items-start gap-3">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-cyan-300" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-gray-200">
+                  <p className="font-semibold text-white">Need to talk sooner?</p>
+                  <p className="mt-1 text-gray-300">Call, text, or email and mention your city + service lines.</p>
+                  <p className="mt-2 text-gray-200">artikai@artikai.org</p>
                 </div>
-                <p className="mt-2 text-sm text-gray-400">{s.blurb}</p>
-              </button>
-            );
-          })}
+                <div className="flex flex-wrap gap-3 text-xs text-white/60">
+                  <Link to="/process" className="underline decoration-white/30 underline-offset-4 hover:text-white">See our process</Link>
+                  <Link to="/pricing" className="underline decoration-white/30 underline-offset-4 hover:text-white">View pricing</Link>
+                </div>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-cyan-500/15">
+                <BookingForm defaultService="Full Website System" />
+              </div>
+            </div>
+          </section>
         </div>
-
-        {/* Lead form */}
-        <form onSubmit={onSubmit} className="mt-10 grid gap-4 max-w-2xl">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="rise" style={{ animationDelay: '200ms' }}>
-              <label className="text-xs text-gray-400" htmlFor="name">Your name</label>
-              <input
-                id="name"
-                name="name"
-                required
-                value={form.name}
-                onChange={onChange}
-                className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 p-2 outline-none focus:ring-2 focus:ring-cyan-500"
-                placeholder="Your name"
-              />
-            </div>
-            <div className="rise" style={{ animationDelay: '240ms' }}>
-              <label className="text-xs text-gray-400" htmlFor="business">Business</label>
-              <input
-                id="business"
-                name="business"
-                type="text"
-                required
-                value={form.business}
-                onChange={onChange}
-                autoComplete="organization"
-                className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 p-2 outline-none focus:ring-2 focus:ring-cyan-500"
-                placeholder="Business name"
-              />
-            </div>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="rise" style={{ animationDelay: '280ms' }}>
-              <label className="text-xs text-gray-400" htmlFor="email">Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={form.email}
-                onChange={onChange}
-                className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 p-2 outline-none focus:ring-2 focus:ring-cyan-500"
-                placeholder="you@company.com"
-              />
-            </div>
-            <div className="rise" style={{ animationDelay: '320ms' }}>
-              <label className="text-xs text-gray-400" htmlFor="phone">Phone</label>
-              <input
-                id="phone"
-                name="phone"
-                value={form.phone}
-                onChange={onChange}
-                className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 p-2 outline-none focus:ring-2 focus:ring-cyan-500"
-                placeholder="(555) 000-0000"
-              />
-            </div>
-          </div>
-          <div className="rise" style={{ animationDelay: '360ms' }}>
-            <label className="text-xs text-gray-400" htmlFor="message">Notes (optional)</label>
-            <textarea
-              id="message"
-              name="message"
-              rows={4}
-              value={form.message}
-              onChange={onChange}
-              className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 p-2 outline-none focus:ring-2 focus:ring-cyan-500"
-              placeholder="Share context..."
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={submitting || !selected}
-            className={`rise rounded-xl px-4 py-2 text-sm font-medium ${
-              selected ? "bg-cyan-500/90 hover:bg-cyan-400 text-black" : "bg-white/10 text-gray-400 cursor-not-allowed"
-            }`}
-            style={{ animationDelay: '420ms' }}
-            title={selected ? "" : "Select a service first"}
-          >
-            {submitting ? "Submitting..." : "Request demo"}
-          </button>
-          <p className="rise text-[11px] text-gray-500" style={{ animationDelay: '460ms' }}>By submitting, you agree to our Terms and Privacy Policy.</p>
-        </form>
-      </section>
-      {/* Thank-you bubble/modal */}
-      {showThanks && (
-        <div
-          aria-modal="true"
-          role="dialog"
-          className="fixed inset-0 z-50 flex items-center justify-center"
-        >
-          {/* backdrop */}
-          <div
-            className="absolute inset-0 bg-black/40"
-            onClick={() => setShowThanks(false)}
-          />
-          {/* bubble */}
-          <div className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
-            <div className="mb-3 text-lg font-semibold">Thanks for reaching out!</div>
-            <p className="mb-6 text-sm text-gray-700">
-              We got your request. We'll review it and get back to you shortly.
-            </p>
-            <div className="flex justify-end gap-3">
-              <button
-                type="button"
-                className="rounded-xl bg-black px-4 py-2 text-sm text-white"
-                onClick={handleThanksOk}
-              >
-                OK
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
       </main>
     </>
   );
